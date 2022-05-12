@@ -129,7 +129,7 @@ li{
 }
 
 ol{
-    list-style-type:none;
+    list-style-type:none
     display:grid;
   grid-template-columns: 49% 49%;
   grid-row: auto auto;
