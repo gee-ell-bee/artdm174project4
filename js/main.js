@@ -216,7 +216,7 @@ async function filterParks() {
                          }).addTo(parksLayer)
                          // create pop-up with basic info -- for later: include link to html list item?
                           .bindPopup(`<h1>${park.poi.name}</h1>
-                            <p><a href="${url}/#p${parkContent.id}">Details</a></p>`)
+                            <p><a href="${url}#p${parkContent.id}">Details</a></p>`)
                          ;
                 };
             };
