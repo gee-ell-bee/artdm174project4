@@ -145,7 +145,7 @@ async function search(e) { // final search function; connector of all search asy
             };
 
             if(newPlace == place.nameUniversal) {
-                throw `&#8220;<span class="universal">${newPlace}</span>&#8221; is already displayed below`;};
+                throw `&#8220;<span class="universal">${newPlace}</span>&#8221; results are already displayed below`;};
 
             let exists = false;
             // for loop to scan through cities
