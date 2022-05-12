@@ -108,7 +108,7 @@ span.universal {
 .words .parkList {
     padding: 2.5rem;
     overflow-y: scroll;
-    max-height: 45vh;
+    max-height: 67vh;
 
 }
 
@@ -141,6 +141,7 @@ header {
     background-color: #56CCF2;
     margin: top;
     text-align: center;
+
 }
 
 footer {
