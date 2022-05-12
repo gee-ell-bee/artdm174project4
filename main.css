@@ -44,6 +44,23 @@ h6 {
     isolation: isolate;
 }
 
+#curtain {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100vw;
+    height: 100vh;
+    background-color: #fff;
+    pointer-events: none;
+    opacity: 1;
+    z-index: 10000;
+    transition: opacity 1s ease-out 0s;
+}
+
+#curtain.opened {
+    opacity: 0;
+}
+
 /* #region MOBILE */
 main {
     margin: 2rem;
@@ -60,7 +77,7 @@ main {
     height: 100%;
 }
 
-.parkList h1 {
+.words h1, .parkList h1 {
     text-align: center;
 }
 
