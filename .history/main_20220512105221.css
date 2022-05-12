@@ -12,7 +12,6 @@
 }
 
 body {
-    margin: 0;
     line-height: 1.5;
     -webkit-font-smoothing: antialiased;
     font-family: 'Roboto', sans-serif;
@@ -91,7 +90,9 @@ main {
     min-height: 25vh;
 }
 
-
+.words h1, .parkList h1 {
+    text-align: center;
+}
 
 span.universal {
     font-size: .9rem;
@@ -144,8 +145,6 @@ header{
 }
 
 footer{
-    padding: 1rem;
-    margin-bottom: 0;
     background-color: #56CCF2;
     
 }

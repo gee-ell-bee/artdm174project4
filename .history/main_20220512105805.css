@@ -12,7 +12,6 @@
 }
 
 body {
-    margin: 0;
     line-height: 1.5;
     -webkit-font-smoothing: antialiased;
     font-family: 'Roboto', sans-serif;
@@ -146,6 +145,7 @@ header{
 footer{
     padding: 1rem;
     margin-bottom: 0;
+    min-height: 100vh;
     background-color: #56CCF2;
     
 }

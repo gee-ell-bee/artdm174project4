@@ -12,7 +12,6 @@
 }
 
 body {
-    margin: 0;
     line-height: 1.5;
     -webkit-font-smoothing: antialiased;
     font-family: 'Roboto', sans-serif;
@@ -91,7 +90,9 @@ main {
     min-height: 25vh;
 }
 
-
+.words h1, .parkList h1 {
+    text-align: center;
+}
 
 span.universal {
     font-size: .9rem;
@@ -102,14 +103,13 @@ span.universal {
 }
 
 .words li {
-    text-align: justify
+    text-align: center;
 }
 
 .words .parkList {
-    padding: 2.5rem;
     overflow-y: scroll;
-    max-height: 67vh;
-    
+    max-height: 60vh;
+    text-align: center;
 }
 
 #map {
@@ -139,23 +139,19 @@ header{
     padding: 1rem;
     background-color: #56CCF2;
     margin: top;
-    text-align: center;
     
 }
 
 footer{
-    padding: 1rem;
-    margin-bottom: 0;
     background-color: #56CCF2;
     
 }
 
+h1{
+    text-align: center;
+}
 
 .search{
     position: absolute;
-    width: 100%;
-    background-color: #56CCF2;
-    padding: 1rem;
-    top: 4rem;
-    left: 0;
+    
 }
