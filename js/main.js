@@ -144,6 +144,10 @@ async function search(e) { // final search function; connector of all search asy
                 errors.innerHTML = "";
             };
 
+            if(newPlace == "") {
+                throw "Enter a place in California for new results";
+            };
+
             if(newPlace == place.nameUniversal) {
                 throw `&#8220;<span class="universal">${newPlace}</span>&#8221; results are already displayed below`;};
 
