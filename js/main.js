@@ -62,11 +62,14 @@ document.addEventListener("DOMContentLoaded", init);
 
 function init() {
 
-    // update placeholder & title text to match initial
-     updateHTMLElem();
-    
-    // show parsed parks data points
-     filterParks();
+    // on start animation
+    const curtain = document.getElementById("curtain");
+    curtain.classList.add("opened");
+    // show data
+        // update placeholder & title text to match initial
+        updateHTMLElem();
+        // show parsed parks data points
+        filterParks();
 
     // event listener to implement searchbar
      searchButton.addEventListener("click", search);
