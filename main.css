@@ -148,7 +148,10 @@ footer{
     padding: 1rem;
     margin-bottom: 0;
     background-color: #56CCF2;
-    
+}
+
+footer nav ul {
+    list-style: none;
 }
 
 
