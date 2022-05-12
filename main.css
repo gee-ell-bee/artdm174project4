@@ -60,13 +60,19 @@ main {
     height: 100%;
 }
 
-.words h1 {
+.parkList h1 {
+    text-align: center;
+}
+
+.words li {
+    
     text-align: center;
 }
 
 .words .parkList {
     overflow-y: scroll;
     max-height: 20vh;
+    text-align: center;
 }
 
 #map {
