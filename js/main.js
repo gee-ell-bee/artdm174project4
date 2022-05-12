@@ -5,6 +5,9 @@ import { caCities } from "./ca-cities-json.js"; // import cities data
  const searchButton = document.getElementById("button");
  const searchField = document.getElementById("search");
  const url = "";
+ const errors = document.getElementById("err");
+
+ const curtain = document.getElementById("curtain");
 
 // create global vars
  let list = document.getElementById("parkList");
@@ -16,6 +19,7 @@ import { caCities } from "./ca-cities-json.js"; // import cities data
  var placeLon = -122.03218000;
  var place = {
     name: placeName,
+    nameUniversal: placeName.toUpperCase(),
     lat: placeLat,
     lon: placeLon,
     id: "ca111093",
@@ -59,12 +63,30 @@ import { caCities } from "./ca-cities-json.js"; // import cities data
  ;
 
 document.addEventListener("DOMContentLoaded", init);
+document.onLoad = onFirstLoad();
+
+function toggleAfterClass() {
+    curtain.classList.toggle("after");
+};
+
+function onFirstLoad() {
+    console.log(curtain);
+    curtain.addEventListener("animationend", toggleAfterClass);
+    openCurtains();
+    console.log(curtain);
+};
+
+function onLaterLoad() {
+    curtain.classList.toggle("opened");
+    openCurtains();
+};
+
+function openCurtains() {
+    // on start animation
+    curtain.classList.toggle("opened");
+};
 
 function init() {
-
-    // on start animation
-    const curtain = document.getElementById("curtain");
-    curtain.classList.add("opened");
     // show data
         // update placeholder & title text to match initial
         updateHTMLElem();
@@ -88,9 +110,10 @@ async function search(e) { // final search function; connector of all search asy
         e.preventDefault();
 
         // wait for content to refresh
-        await removeParks();
         await searchCities();
-        await filterParks();
+        onLaterLoad();
+        await removeParks();
+        await filterParks();;
         
         // then update entire page
         refreshWholeApp();
@@ -110,13 +133,21 @@ async function search(e) { // final search function; connector of all search asy
 
     function getSearch() { // get search input from searchbar
         // identify search input
-        let value = searchField.value;
+        let value = searchField.value.toUpperCase();
         return value;
     };
 
     async function searchCities() { // compare search input to cities data
         try {
             let newPlace = await getSearch();
+            if(errors.innerHTML !== "") {
+                errors.innerHTML = "";
+            };
+
+            if(newPlace == place.nameUniversal) {
+                throw `&#8220;<span class="universal">${newPlace}</span>&#8221; is already displayed below`;};
+
+            let exists = false;
             // for loop to scan through cities
             for (let i = 0; i < caCitiesData.length; i++) {
                 // labeling for clarity; as if wrote "forEach((caCity) =>)"
@@ -124,17 +155,22 @@ async function search(e) { // final search function; connector of all search asy
                 // specifying the city data object
                 let cityData = caCity.city;
                 // if search name matches the city name
-                if(newPlace == cityData.name) {
+                if(newPlace == cityData.nameUniversal) {
+                    exists = true;
                     // then replace old map place data with new place's data
                     place.name = cityData.name;
+                    place.nameUniversal = cityData.nameUniversal;
                     place.lat = Number(cityData.lat);
                     place.lon = Number(cityData.lon);
                     place.id = cityData.id;
+                    return place;
                 };
             };
-            return place;
+            if (exists == false) {
+                throw `&#8220;<span class="universal">${newPlace}</span>&#8221; is not in the database`;
+            };
         } catch(err) {
-            console.log("Search Cities Error:", err);
+            errors.innerHTML = `<p><strong>Search Error:</strong> ${err}</p>`;
         };
     };
 
@@ -143,7 +179,6 @@ async function refreshMap() {
      map.setView([place.lat, place.lon]);
     // update You Are Here Marker
      youreHereMarker.setLatLng([place.lat, place.lon]);
-     youreHereMarker.update();
 };
 
 async function refreshWholeApp() {
@@ -151,7 +186,7 @@ async function refreshWholeApp() {
      updateHTMLElem();
     // update map data
      refreshMap();
-}
+};
 
 async function getParks() { // get tomtom parks data
     try {
@@ -202,7 +237,7 @@ async function filterParks() {
                          }).addTo(parksLayer)
                          // create pop-up with basic info -- for later: include link to html list item?
                           .bindPopup(`<h1>${park.poi.name}</h1>
-                            <p><a href="${url}/#p${parkContent.id}">Details</a></p>`)
+                            <p><a href="${url}#p${parkContent.id}">Details</a></p>`)
                          ;
                 };
             };

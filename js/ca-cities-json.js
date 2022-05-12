@@ -13487,6 +13487,7 @@ for(let i = 0; i < caCitiesJSON.length; i++) {
 
 function City(name, lat, lon, id) {
     // client-side info
+    this.nameUniversal = name.toUpperCase();
     this.name = name;
 
     // computational IDs

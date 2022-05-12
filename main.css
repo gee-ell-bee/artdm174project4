@@ -86,6 +86,14 @@ main {
     text-align: center;
 }
 
+span.universal {
+    font-size: .9rem;
+}
+
+#err {
+    color: #f00;
+}
+
 .words li {
     text-align: center;
 }
