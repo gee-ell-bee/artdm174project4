@@ -144,13 +144,16 @@ header {
     text-align: center;
 }
 
-footer{
-    padding: 1rem;
-    margin: 0;
+footer {
+    width: 100%;
+    margin: bottom;
     background-color: #56CCF2;
 }
 
 footer nav ul {
+    width: 100%;
+    margin: bottom;
+    background-color: #56CCF2;
     list-style: none;
 }
 

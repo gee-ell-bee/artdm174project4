@@ -13,7 +13,6 @@
 
 body {
     margin: 0;
-    padding: 0;
     line-height: 1.5;
     -webkit-font-smoothing: antialiased;
     font-family: 'Roboto', sans-serif;
@@ -145,12 +144,12 @@ header {
 }
 
 footer{
-    padding: 1rem;
-    margin: 0;
+    
     background-color: #56CCF2;
 }
 
 footer nav ul {
+    margin: 0;
     list-style: none;
 }
 
