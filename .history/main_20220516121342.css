@@ -121,7 +121,7 @@ span.universal {
     opacity: .5;
 }
 
-#parkList li {
+li {
     background-color: #56CCF2;
     margin: 1rem;
     padding: 1rem;
@@ -146,14 +146,12 @@ header {
 
 footer{
     
-    margin: 0;
     background-color: #56CCF2;
 }
 
 footer nav ul {
     list-style: none;
-    padding: 1rem;
-    margin: 0;
+    
 }
 
 
@@ -164,4 +162,12 @@ footer nav ul {
     padding: 1rem;
     top: 4rem;
     left: 0;
+}
+
+li{
+    padding: 0;
+}
+
+ul{
+    margin: 0;
 }
