@@ -232,13 +232,10 @@ async function filterParks() {
                          list.appendChild(newLI);
 
                         // create plot point for park
-                         var parkMarker = L.circle(
+                         var parkMarker = L.icon(
                             [park.position.lat, park.position.lon], {
-                                
-                                color: "rgba(230, 60, 60, .6)", // bright & semiopaque cherry red
-                                radius: 5,
-                                fillColor: "rgb(230, 60, 60)", // bright cherry red
-                                fillOpacity: .7,
+                                iconUrl: 'pin.png',
+                                iconSize:     [38, 95], // size of the icon
                          }).addTo(parksLayer)
                          // create pop-up with basic info -- for later: include link to html list item?
                           .bindPopup(`<h1>${park.poi.name}</h1>

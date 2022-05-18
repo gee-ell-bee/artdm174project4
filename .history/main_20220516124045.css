@@ -1,0 +1,167 @@
+@import url('https://fonts.googleapis.com/css2?family=Lora&family=Work+Sans&display=swap');
+
+
+*,
+*::before,
+*::after {
+    box-sizing: border-box;
+}
+
+* {
+    margin: 0;
+}
+
+body {
+    margin: 0;
+    padding: 0;
+    line-height: 1.5;
+    -webkit-font-smoothing: antialiased;
+    font-family: 'Roboto', sans-serif;
+    line-height: 1.5;
+    -webkit-font-smoothing: antialiased;
+    background-image: url(/images/background.jpg);
+    background-attachment: fixed;
+}
+
+img,
+picture,
+video,
+canvas,
+svg {
+    display: block;
+    max-width: 100%;
+}
+
+input,
+button,
+textarea,
+select {
+    font: inherit;
+}
+
+p,
+h1,
+h2,
+h3,
+h4,
+h5,
+h6 {
+    overflow-wrap: break-word;
+}
+
+#root,
+#__next {
+    isolation: isolate;
+}
+
+#curtain {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100vw;
+    height: 100vh;
+    background-color: #fff;
+    pointer-events: none;
+    opacity: 1;
+    z-index: 10000;
+    transition: opacity 1s ease-out .5s;
+}
+
+#curtain.after {
+    transition: opacity .25s ease-out .5s;
+}
+
+#curtain.opened {
+    opacity: 0;
+}
+
+/* #region MOBILE */
+main {
+    margin: 2rem;
+    width: auto;
+    height: 100%;
+    display: grid;
+    grid-template-columns: 1fr;
+    grid-template-rows: 1fr, 2fr;
+    grid-gap: 3rem;
+}
+
+.words {
+    width: 100%;
+    height: 100%;
+    min-height: 25vh;
+}
+
+
+
+span.universal {
+    font-size: .9rem;
+}
+
+#err {
+    color: #f00;
+}
+
+.words li {
+    text-align: justify
+}
+
+.words .parkList {
+    padding: 2.5rem;
+    overflow-y: scroll;
+    max-height: 45vh;
+
+}
+
+#map {
+    height: 55vh;
+}
+
+.leaflet-bottom {
+    opacity: .5;
+}
+
+#parkList li {
+    background-color: #56CCF2;
+    margin: 1rem;
+    padding: 1rem;
+    border-radius: 25px;
+
+}
+
+ol {
+    list-style-type: none;
+    display: grid;
+    grid-template-columns: 49% 49%;
+    grid-row: auto auto;
+
+}
+
+header {
+    padding: 1rem;
+    background-color: #56CCF2;
+    margin: top;
+    text-align: center;
+}
+
+footer{
+    
+    margin: 0;
+    background-color: #56CCF2;
+}
+
+footer nav ul {
+    list-style: none;
+    padding: 1rem;
+    margin: 0;
+}
+
+
+.search {
+    position: absolute;
+    width: 100%;
+    background-color: #56CCF2;
+    padding: 1rem;
+    top: 4rem;
+    left: 0;
+}

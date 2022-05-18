@@ -244,6 +244,8 @@ async function filterParks() {
                           .bindPopup(`<h1>${park.poi.name}</h1>
                             <p><a href="${url}#p${parkContent.id}">Details</a></p>`)
                          ;
+
+                         var parkMarker = new icon({iconUrl: 'pin.png'})
                 };
             };
         });

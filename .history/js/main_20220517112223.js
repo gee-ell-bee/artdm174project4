@@ -51,9 +51,7 @@ import { caCities } from "./ca-cities-json.js"; // import cities data
 
 // init You Are Here Marker
  let youreHereMarker = L.circleMarker([place.lat, place.lon], {
-    opacity: .7,
-    radius: 7,
-    fillOpacity: .3
+    
  })
     .on("move", function() {
         youreHereMarker.setPopupContent(`<h2>${place.name}</h2>`);
@@ -232,13 +230,10 @@ async function filterParks() {
                          list.appendChild(newLI);
 
                         // create plot point for park
-                         var parkMarker = L.circle(
+                         var icon = L.circle(
                             [park.position.lat, park.position.lon], {
                                 
-                                color: "rgba(230, 60, 60, .6)", // bright & semiopaque cherry red
-                                radius: 5,
-                                fillColor: "rgb(230, 60, 60)", // bright cherry red
-                                fillOpacity: .7,
+                                
                          }).addTo(parksLayer)
                          // create pop-up with basic info -- for later: include link to html list item?
                           .bindPopup(`<h1>${park.poi.name}</h1>

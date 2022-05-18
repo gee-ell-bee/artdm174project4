@@ -232,7 +232,7 @@ async function filterParks() {
                          list.appendChild(newLI);
 
                         // create plot point for park
-                         var parkMarker = L.circle(
+                         var icon = L.circle(
                             [park.position.lat, park.position.lon], {
                                 
                                 color: "rgba(230, 60, 60, .6)", // bright & semiopaque cherry red

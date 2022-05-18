@@ -236,7 +236,7 @@ async function filterParks() {
                             [park.position.lat, park.position.lon], {
                                 
                                 color: "rgba(230, 60, 60, .6)", // bright & semiopaque cherry red
-                                radius: 5,
+                                radius: 100,
                                 fillColor: "rgb(230, 60, 60)", // bright cherry red
                                 fillOpacity: .7,
                          }).addTo(parksLayer)

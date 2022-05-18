@@ -52,7 +52,7 @@ import { caCities } from "./ca-cities-json.js"; // import cities data
 // init You Are Here Marker
  let youreHereMarker = L.circleMarker([place.lat, place.lon], {
     opacity: .7,
-    radius: 7,
+    radius: 15,
     fillOpacity: .3
  })
     .on("move", function() {
@@ -232,7 +232,7 @@ async function filterParks() {
                          list.appendChild(newLI);
 
                         // create plot point for park
-                         var parkMarker = L.circle(
+                         var icon = L.circle(
                             [park.position.lat, park.position.lon], {
                                 
                                 color: "rgba(230, 60, 60, .6)", // bright & semiopaque cherry red
