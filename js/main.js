@@ -234,7 +234,7 @@ async function filterParks() {
                         // create plot point for park
 
                         var mapIcon = L.icon({
-                            iconUrl: 'images/pin.png',
+                            iconUrl: '../images/pin.png',
                             iconSize:     [50, 50], // size of the icon
                             
                             
