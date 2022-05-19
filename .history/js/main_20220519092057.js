@@ -234,14 +234,17 @@ async function filterParks() {
                         // create plot point for park
 
                         var mapIcon = L.icon({
-                            iconUrl: '../images/pin.png',
-                            iconSize:     [50, 50], // size of the icon
-                            
-                            
+                            iconUrl: '../images/pin.png'
                         })
 
-                         var parkMarker = L.marker(
-                            [park.position.lat, park.position.lon], {icon: mapIcon}).addTo(parksLayer)
+                         var parkMarker = L.circle(
+                            [park.position.lat, park.position.lon], {
+                                
+                                color: "rgba(230, 60, 60, .6)", // bright & semiopaque cherry red
+                                radius: 5,
+                                fillColor: "rgb(230, 60, 60)", // bright cherry red
+                                fillOpacity: .7,
+                         }).addTo(parksLayer)
                          // create pop-up with basic info -- for later: include link to html list item?
                           .bindPopup(`<h1>${park.poi.name}</h1>
                             <p><a href="${url}#p${parkContent.id}">Details</a></p>`)

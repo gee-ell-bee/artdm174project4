@@ -235,8 +235,7 @@ async function filterParks() {
 
                         var mapIcon = L.icon({
                             iconUrl: '../images/pin.png',
-                            iconSize:     [50, 50], // size of the icon
-                            
+                            iconSize:     [50%], // size of the icon
                             
                         })
 
