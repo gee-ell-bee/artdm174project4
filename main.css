@@ -19,7 +19,7 @@ body {
     font-family: 'Roboto', sans-serif;
     line-height: 1.5;
     -webkit-font-smoothing: antialiased;
-    background-image: url(/images/background.jpg);
+    background-image: url(images/background.jpg);
     background-attachment: fixed;
 }
 
