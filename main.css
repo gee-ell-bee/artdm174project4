@@ -1,3 +1,6 @@
+@import url('https://fonts.googleapis.com/css2?family=Lora&family=Work+Sans&display=swap');
+
+
 *,
 *::before,
 *::after {
@@ -9,8 +12,15 @@
 }
 
 body {
+    margin: 0;
+    padding: 0;
     line-height: 1.5;
     -webkit-font-smoothing: antialiased;
+    font-family: 'Roboto', sans-serif;
+    line-height: 1.5;
+    -webkit-font-smoothing: antialiased;
+    background-image: url(/images/background.jpg);
+    background-attachment: fixed;
 }
 
 img,
@@ -82,9 +92,7 @@ main {
     min-height: 25vh;
 }
 
-.words h1, .parkList h1 {
-    text-align: center;
-}
+
 
 span.universal {
     font-size: .9rem;
@@ -95,13 +103,14 @@ span.universal {
 }
 
 .words li {
-    text-align: center;
+    text-align: justify
 }
 
 .words .parkList {
+    padding: 2.5rem;
     overflow-y: scroll;
-    max-height: 20vh;
-    text-align: center;
+    max-height: 45vh;
+
 }
 
 #map {
@@ -110,4 +119,49 @@ span.universal {
 
 .leaflet-bottom {
     opacity: .5;
+}
+
+#parkList li {
+    background-color: #56CCF2;
+    margin: 1rem;
+    padding: 1rem;
+    border-radius: 25px;
+
+}
+
+ol {
+    list-style-type: none;
+    display: grid;
+    grid-template-columns: 49% 49%;
+    grid-row: auto auto;
+
+}
+
+header {
+    padding: 1rem;
+    background-color: #56CCF2;
+    margin: top;
+    text-align: center;
+}
+
+footer{
+    
+    margin: 0;
+    background-color: #56CCF2;
+}
+
+footer nav ul {
+    list-style: none;
+    padding: 1rem;
+    margin: 0;
+}
+
+
+.search {
+    position: absolute;
+    width: 100%;
+    background-color: #56CCF2;
+    padding: 1rem;
+    top: 4rem;
+    left: 0;
 }
