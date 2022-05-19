@@ -1,5 +1,4 @@
-@import url('https://fonts.googleapis.com/css2?family=Lora&family=Work+Sans&display=swap');
-
+@import url('https://fonts.googleapis.com/css2?family=Karma:wght@300;400;500;600;700&family=Manrope:wght@200;300;400;500;600;700;800&display=swap');
 
 *,
 *::before,
@@ -16,7 +15,6 @@ body {
     padding: 0;
     line-height: 1.5;
     -webkit-font-smoothing: antialiased;
-    font-family: 'Roboto', sans-serif;
     line-height: 1.5;
     -webkit-font-smoothing: antialiased;
     background-image: url(/images/background.jpg);
@@ -75,16 +73,41 @@ h6 {
     opacity: 0;
 }
 
-/* #region MOBILE */
-main {
-    margin: 2rem;
-    width: auto;
-    height: 100%;
-    display: grid;
-    grid-template-columns: 1fr;
-    grid-template-rows: 1fr, 2fr;
-    grid-gap: 3rem;
+.search{
+    margin:1rem;
+    background-color: #56CCF2;
+    font-family: 'Manrope', sans-serif;
+    font-size: 14px;
 }
+
+h1 {
+    font-family: 'Karma', serif;
+    font-weight: bold;
+}
+
+
+
+p {
+    font-family: 'Manrope', sans-serif;
+    font-size: 14px;
+}
+
+.words li {
+ text-align: flex;
+ font-family: 'Manrope', sans-serif;
+}
+
+/* #region MOBILE */
+@media screen and (min-width: 400px) {
+    main {
+        margin: 2rem;
+        width: auto;
+        height: auto;
+        display: grid;
+        grid-template-columns: 1fr;
+        grid-template-rows: 1fr, 2fr;
+        grid-gap: 3rem;
+    }
 
 .words {
     width: 100%;
@@ -95,7 +118,7 @@ main {
 
 
 span.universal {
-    font-size: .9rem;
+    font-size: 14px;
 }
 
 #err {
@@ -103,7 +126,7 @@ span.universal {
 }
 
 .words li {
-    text-align: justify
+    text-align: flex;
 }
 
 .words .parkList {
@@ -122,10 +145,10 @@ span.universal {
 }
 
 #parkList li {
-    background-color: #56CCF2;
+    background-color: #F5E7D7;
     margin: 1rem;
     padding: 1rem;
-    border-radius: 25px;
+    border-radius: 12px;
 
 }
 
@@ -138,9 +161,9 @@ ol {
 }
 
 header {
-    padding: 1rem;
+    padding: 2rem;
     background-color: #56CCF2;
-    margin: top;
+    margin: block;
     text-align: center;
 }
 
@@ -160,8 +183,9 @@ footer nav ul {
 .search {
     position: absolute;
     width: 100%;
-    background-color: #56CCF2;
-    padding: 1rem;
     top: 4rem;
     left: 0;
+    margin:flex;
+}
+
 }
