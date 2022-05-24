@@ -133,8 +133,9 @@ async function search(e) { // final search function; connector of all search asy
 
     function getSearch() { // get search input from searchbar
         // identify search input
-        let value = searchField.value.toUpperCase();
-        return value;
+        let searchValue = searchField.value.toUpperCase();
+        searchField.value = "";
+        return searchValue;
     };
 
     async function searchCities() { // compare search input to cities data

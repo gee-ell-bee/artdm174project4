@@ -18,6 +18,9 @@ body {
     line-height: 1.5;
     font-size: 18px;
     -webkit-font-smoothing: antialiased;
+
+    /* CSS VARS */
+    --accentColor: #56CCF2;
 }
 
 img,
@@ -74,21 +77,26 @@ h6 {
 
 header {
     padding: 2rem;
-    background-color: #56CCF2;
-    margin: block;
+    background-color: var(--accentColor);
     text-align: center;
 }
 
 h1 {
-    font-weight: 400;
-    color: rgb(37, 37, 37);
+    border: 1px solid;
+    font-weight: 600;
+    color: rgb(56, 56, 56);
 }
 
 h1 #placeName {
     color: black;
 }
 
+section {
+    border: 3px dashed;
+}
+
 form {
+    border: 1px solid;
     display: flex;
     justify-content: center;
     width: 100%;
@@ -97,7 +105,7 @@ form {
 
 .search {
     margin: 1rem 0 0 0;
-    background-color: #56CCF2;
+    background-color: var(--accentColor);
     font-family: source-sans-pro, sans-serif;
 }
 
@@ -108,17 +116,25 @@ form {
     align-items: center;
 }
 
-.search #search {
-    margin-left: .5rem;
-    padding: 1vmin 2vmin;
-}
-
 .search .searchLabel {
     display: flex;
 }
 
 .searchLabel span {
-    width: 11rem;
+    width: 12rem;
+}
+
+.search #search {
+    margin-left: 0;
+    padding: .5rem 1rem;
+    border-radius: .5rem;
+    font-size: 20px;
+    font-weight: 400;
+    border: 2px solid lightblue;
+}
+
+#search::placeholder {
+    color: rgb(155, 155, 155);
 }
 
 #search {
@@ -128,10 +144,21 @@ form {
 
 #button {
     padding: 0 1rem;
+    border-radius: .5rem;
+    border: 2px solid lightgray;
+    font-size: 1.25rem;
 }
 
 #err {
-    color: #f00;
+    color: #ff4848;
+    width: 100%;
+    margin:.5rem 0 0 0;
+    bottom: -2rem;
+}
+
+span.universal {
+    font-size: 14px;
+    display: inline;
 }
 
 main {
@@ -150,7 +177,7 @@ main {
 }
 
 #map {
-    height: 55vh;
+    height: 50vh;
 }
 
 .content .parkList {
@@ -159,23 +186,84 @@ main {
     max-height: 45vh;
 }
 
-#parkList {
+/* ol {
+    list-style: none;
+    counter-reset: my-awesome-counter;
+  }
+  li {
+    counter-increment: my-awesome-counter;
+    margin: 0.25rem;
+  }
+  li::before {
+    content: counter(my-awesome-counter);
+    background: #662974;
+    width: 2rem;
+    height: 2rem;
+    border-radius: 50%;
+    display: inline-block;
+    line-height: 2rem;
+    color: white;
+    text-align: center;
+    margin-right: 0.5rem;
+  } */
+
+ol {
     list-style-type: none;
-    padding: 0;
+    counter-reset: parksCounter;
+}
+
+ol li {
+    counter-increment: parksCounter;
+    margin: 0.25rem;
+}
+
+ol li::before {
+    content: counter(parksCounter);
+    position: absolute;
+    left: -5rem;
+    font-style: italic;
+    text-indent: 1rem;
+    text-align: right;
+    line-height: -2rem;
+    font-size: 3rem;
+    font-weight: 600;
+    width: 3rem;
+    height: 3rem;
+    color: black;
+    background: var(--accentColor);
+    border-radius: 50%;
+}
+
+#parkList {
+    padding: 2rem;
     display: grid;
     grid-template-columns: 1fr 1fr;
     grid-gap: 2rem;
 }
 
 #parkList li {
+    position: relative;
+    margin: .25rem 1rem .25rem 4rem;
     background-color: #F5E7D7;
     padding: 1rem;
     border-radius: 12px;
 }
 
+/* #parklist li::before {
+    content: counter(parksCounter);
+    display: inline-block;
+    text-align: center;
+    font-size: 3rem;
+    width: 2rem;
+    height: 2rem;
+    color: black;
+    background: #56CCF2;
+    border-radius: 12px;
+} */
+
 footer {
     margin: 0;
-    background-color: #56CCF2;
+    background-color: var(--accentColor);
 }
 
 footer nav ul {
@@ -187,5 +275,17 @@ footer nav ul {
 /* #region MOBILE */
 @media screen and (max-width: 700px) {
     
+    .search #search {
+        margin-left: 1vmin;
+        padding: 1vmin 2vmin;
+    }
+
+    #button {
+        padding: 0 2vmin;
+    }
+
+    .searchLabel span {
+        width: 15rem;
+    }
 
 }
