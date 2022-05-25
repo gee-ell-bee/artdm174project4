@@ -1,165 +1,186 @@
-@import url('https://fonts.googleapis.com/css2?family=Karma:wght@300;400;500;600;700&family=Manrope:wght@200;300;400;500;600;700;800&display=swap');
+/* #region preamble */
+    *,
+    *::before,
+    *::after {
+        box-sizing: border-box;
+    }
 
-*,
-*::before,
-*::after {
-    box-sizing: border-box;
-}
+    * {
+        margin: 0;
+    }
 
-* {
-    margin: 0;
-}
+    body {
+        margin: 0;
+        padding: 0;
+        font-family: source-sans-pro, sans-serif;
+        font-weight: 300;
+        line-height: 1.5;
+        font-size: 18px;
+        -webkit-font-smoothing: antialiased;
 
-body {
-    margin: 0;
-    padding: 0;
-    font-family: source-sans-pro, sans-serif;
-    font-weight: 300;
-    line-height: 1.5;
-    font-size: 18px;
-    -webkit-font-smoothing: antialiased;
+        /* CSS VARS */
+        --accentColor: #81cbe3; /* orig #56CCF2 */
+        --errorColor: #ed4b4b;
+    }
 
-    /* CSS VARS */
-    --accentColor: #56CCF2;
-}
+    img,
+    picture,
+    video,
+    canvas,
+    svg {
+        display: block;
+        max-width: 100%;
+    }
 
-img,
-picture,
-video,
-canvas,
-svg {
-    display: block;
-    max-width: 100%;
-}
+    input,
+    button,
+    textarea,
+    select {
+        font: inherit;
+    }
 
-input,
-button,
-textarea,
-select {
-    font: inherit;
-}
+    p,
+    h1,
+    h2,
+    h3,
+    h4,
+    h5,
+    h6 {
+        overflow-wrap: break-word;
+    }
 
-p,
-h1,
-h2,
-h3,
-h4,
-h5,
-h6 {
-    overflow-wrap: break-word;
-}
+    #root,
+    #__next {
+        isolation: isolate;
+    }
+/* #endregion */
 
-#root,
-#__next {
-    isolation: isolate;
-}
+/* #region onLoad */
+    #curtain {
+        position: absolute;
+        top: 0;
+        left: 0;
+        width: 100vw;
+        height: 100vh;
+        background-color: #fff;
+        pointer-events: none;
+        opacity: 1;
+        z-index: 10000;
+        transition: opacity 1s ease-out .5s;
+    }
 
-#curtain {
-    position: absolute;
-    top: 0;
-    left: 0;
-    width: 100vw;
-    height: 100vh;
-    background-color: #fff;
-    pointer-events: none;
-    opacity: 1;
-    z-index: 10000;
-    transition: opacity 1s ease-out .5s;
-}
+    #curtain.after {
+        transition: opacity .25s ease-out .5s;
+    }
 
-#curtain.after {
-    transition: opacity .25s ease-out .5s;
-}
+    #curtain.opened {
+        opacity: 0;
+    }
+/* #endregion */
 
-#curtain.opened {
-    opacity: 0;
-}
+/* #region MOBILE header */
+    header {
+        padding: 3rem;
+        background-color: var(--accentColor);
+        text-align: center;
+    }
 
-header {
-    padding: 2rem;
-    background-color: var(--accentColor);
-    text-align: center;
-}
+    h1 {
+        font-weight: 600;
+        color: rgb(56, 56, 56);
+    }
 
-h1 {
-    border: 1px solid;
-    font-weight: 600;
-    color: rgb(56, 56, 56);
-}
+    h1 #placeName {
+        color: black;
+    }
 
-h1 #placeName {
-    color: black;
-}
+    /* #region Searchbar */
+        form {
+            display: flex;
+            justify-content: center;
+            width: 100%;
+            grid-gap: .5rem;
+        }
 
-section {
-    border: 3px dashed;
-}
+        .search {
+            margin: 1rem 0 0 0;
+            background-color: var(--accentColor);
+            font-family: source-sans-pro, sans-serif;
+        }
 
-form {
-    border: 1px solid;
-    display: flex;
-    justify-content: center;
-    width: 100%;
-    grid-gap: .5rem;
-}
+        .search span {
+            display: flex;
+            font-size: 20px;
+            width: fit-content;
+            align-items: center;
+        }
 
-.search {
-    margin: 1rem 0 0 0;
-    background-color: var(--accentColor);
-    font-family: source-sans-pro, sans-serif;
-}
+        .search .searchLabel {
+            display: flex;
+        }
 
-.search span {
-    display: flex;
-    font-size: 20px;
-    width: fit-content;
-    align-items: center;
-}
+        .searchLabel span {
+            width: 12rem;
+        }
 
-.search .searchLabel {
-    display: flex;
-}
+        .search #search {
+            margin-left: 0;
+            padding: .5rem 1rem;
+            border-radius: .5rem;
+            font-size: 20px;
+            font-weight: 400;
+            border: 2px solid lightblue;
+        }
 
-.searchLabel span {
-    width: 12rem;
-}
+        #search::placeholder {
+            color: gray;
+        }
 
-.search #search {
-    margin-left: 0;
-    padding: .5rem 1rem;
-    border-radius: .5rem;
-    font-size: 20px;
-    font-weight: 400;
-    border: 2px solid lightblue;
-}
+        #search {
+            width: 100%;
+            max-width: 50vw;
+        }
 
-#search::placeholder {
-    color: rgb(155, 155, 155);
-}
+        /* Search Button */
+        #button {
+            padding: 0 1rem;
+            border-radius: .5rem;
+            border: 2px solid rgb(112, 158, 173);
+            font-size: 1.25rem;
+            font-weight: 400;
+            background-color: rgba(193, 193, 193, 1);
+            box-shadow: 0 0 .5rem rgba(0, 0, 0, .1) inset;
+            transition: all .25s ease-in 0;
+        }
 
-#search {
-    width: 100%;
-    max-width: 50vw;
-}
+        #button:hover {
+            background-color: rgba(193, 193, 193, .8);
+            color: rgba(0, 0, 0, .7);
+        }
 
-#button {
-    padding: 0 1rem;
-    border-radius: .5rem;
-    border: 2px solid lightgray;
-    font-size: 1.25rem;
-}
+        #button:active {
+            background-color: rgba(193, 193, 193, .5);
+            color: rgba(0, 0, 0, .6);
+        }
+    /* #endregion */
 
-#err {
-    color: #ff4848;
-    width: 100%;
-    margin:.5rem 0 0 0;
-    bottom: -2rem;
-}
+    /* #region Error Message */
+        #err {
+            color: var(--errorColor);
+            width: 100%;
+            margin: .5rem 0 0 0;
+            text-shadow: 0 0 5px rgba(0, 0, 0, .2);
+            bottom: -2rem;
+            font-weight: 400;
+        }
 
-span.universal {
-    font-size: 1rem;
-    display: inline;
-}
+        span.universal {
+            font-size: 1rem;
+            display: inline;
+        }
+    /* #endregion */
+
+/* #endregion */
 
 main {
     margin: 2rem;
@@ -235,7 +256,7 @@ ol li::before {
 }
 
 #parkList {
-    padding: 2rem;
+    padding: 0 2rem 2rem 2rem;
     display: grid;
     grid-template-columns: 1fr 1fr;
     grid-gap: 2rem;
@@ -286,6 +307,15 @@ footer nav ul {
 
     .searchLabel span {
         width: 15rem;
+    }
+
+    #parkList {
+        padding: 0 2rem 2rem 2rem;
+        display: block;
+    }
+
+    #parkList li {
+        margin-top: 2rem;
     }
 
 }
