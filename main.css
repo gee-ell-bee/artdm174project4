@@ -88,6 +88,58 @@ h1 {
     color: rgb(56, 56, 56);
 }
 
+a {
+    text-decoration: none;
+    color: #3c2800;
+    font-weight: 400;
+}
+
+#parkList li {
+    display: flex;
+    flex-direction: column;
+    justify-content: space-evenly;
+}
+
+a.mapIt {
+    display: block;
+    /* experiment
+    position: relative; */
+    margin: 1rem auto .5rem auto;
+    text-align: center;
+    width: fit-content;
+    background:
+        linear-gradient(217deg, rgba(0, 76, 255, 0.2), rgba(255,0,0,0) 70.71%),
+        linear-gradient(127deg, rgba(255, 230, 0, 0.2), rgba(0,255,0,0) 70.71%),
+        linear-gradient(336deg, rgba(0, 255, 0,.2), rgba(0,0,255,0) 70.71%);
+    /* background:
+        linear-gradient(217deg, rgba(255,0,0,.4), rgba(255,0,0,0) 70.71%),
+        linear-gradient(127deg, rgba(0,255,0,.4), rgba(0,255,0,0) 70.71%),
+        linear-gradient(336deg, rgba(0,0,255,.4), rgba(0,0,255,0) 70.71%); */
+    color: #3c2800;
+    font-weight: 600;
+    box-shadow: 0 3px 5px rgba(0, 0, 0, .3);
+    border-bottom: 2px solid rgba(0, 0, 0, .3);
+    border-right: 2px solid rgba(0, 0, 0, .3);
+    /* border-top: 3px solid mediumseagreen;
+    border-left: 2px solid mediumseagreen; */
+    border-radius: 12px;
+    padding: .5rem 1rem;
+    text-decoration: none;
+}
+/* experiment
+a.mapIt::before {
+    content: "\2192";
+    right: -2rem;
+    top: 1rem;
+}
+
+a.mapIt::after {
+    content: "\2192";
+
+    right: -2rem;
+    top: 1rem;
+} */
+
 /* #region MOBILE header */
     header {
         padding: 3rem;
@@ -159,19 +211,28 @@ h1 {
 
         /* Search Button */
         #button {
-            padding: 0 1rem;
+            padding: 0 1.5rem;
             margin: 0 .25rem;
-            border-radius: .5rem;
-            border: 2px solid rgb(103, 172, 195);
+            border-radius: .75rem;
+            border-right: none;
+            border-top: none;
+            border-bottom: 2px solid rgb(103, 172, 195);
+            border-left: 2px solid rgb(103, 172, 195);
             font-size: 1.25rem;
             font-weight: 400;
-            background-color: rgb(216, 216, 216);
+            background:
+                linear-gradient(217deg, rgba(12, 0, 181, 0.2), rgba(255,0,0,0) 70.71%),
+                linear-gradient(127deg, rgba(6, 177, 26, 0.2), rgba(0,255,0,0) 70.71%),
+                linear-gradient(336deg, rgba(129, 37, 172, 0.2), rgba(0,0,255,0) 70.71%);
             box-shadow: 0px 2px 4px rgba(0, 0, 0, .2);
             transition: all .25s ease-in 0;
         }
 
         #button:hover {
-            background-color: rgba(216, 216, 216, .95);
+            background:
+                linear-gradient(217deg, rgba(12, 0, 181, 0.1), rgba(255,0,0,0) 70.71%),
+                linear-gradient(127deg, rgba(6, 177, 26, 0.1), rgba(0,255,0,0) 70.71%),
+                linear-gradient(336deg, rgba(129, 37, 172, 0.1), rgba(0,0,255,0) 70.71%);
             color: rgba(0, 0, 0, .7);
 
         }
@@ -226,22 +287,28 @@ h1 {
     }
 
     /* #region MOBILE park list */
+
+        /* gradient */
+        div.wrap {
+            position: relative;
+        }
+        div#gradient {
+            background: linear-gradient(to bottom,
+            transparent 90%,
+            white 99%);
+            z-index: 1;
+            position: absolute;
+            width: 100%;
+            height: 100%;
+            top: 0;
+            left: 0;
+            pointer-events: none;
+        }
         /* list container */
         .content .parkList {
             margin: 2rem 0;
             overflow-y: scroll;
-            position: relative;
             max-height: 60vh;
-        }
-
-        .parkList .edge {
-            position: absolute;
-            opacity: .5;
-            background: black;
-            bottom: 0;
-            left: 0;
-            height: 4rem;
-            width: 100%;
         }
 
         /* general list creator for counter */
@@ -301,6 +368,12 @@ h1 {
             margin: 0;
         }
 
+        footer nav ul.attribution {
+            display: flex;
+            flex-flow: column;
+            align-items: center;
+        }
+
         footer nav ul.appInfo {
             display: flex;
             justify-content: center;
@@ -336,7 +409,7 @@ h1 {
     }
 
     .content .parkList {
-        margin: 5vmin 0;
+        margin: 5vmin 0; 
         max-height: 30vh;
     }
 
