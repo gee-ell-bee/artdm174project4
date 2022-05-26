@@ -94,6 +94,7 @@ a {
     font-weight: 400;
 }
 
+<<<<<<< HEAD
 a:hover {
     text-decoration: underline;
 }
@@ -102,6 +103,8 @@ a:active {
     opacity: .7;
 }
 
+=======
+>>>>>>> 37737d721f091f6c722bc515fedc478f90d65e3c
 #parkList li {
     display: flex;
     flex-direction: column;
@@ -232,7 +235,11 @@ a.mapIt::after {
                 linear-gradient(217deg, rgba(12, 0, 181, 0.2), rgba(255,0,0,0) 70.71%),
                 linear-gradient(127deg, rgba(6, 177, 26, 0.2), rgba(0,255,0,0) 70.71%),
                 linear-gradient(336deg, rgba(129, 37, 172, 0.2), rgba(0,0,255,0) 70.71%);
+<<<<<<< HEAD
             box-shadow: 2px 2px 4px rgba(0, 0, 0, .2);
+=======
+            box-shadow: 0px 2px 4px rgba(0, 0, 0, .2);
+>>>>>>> 37737d721f091f6c722bc515fedc478f90d65e3c
             transition: all .25s ease-in 0;
         }
 
