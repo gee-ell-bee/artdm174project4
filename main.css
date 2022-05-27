@@ -68,7 +68,7 @@
         background-color: #fff;
         pointer-events: none;
         opacity: 1;
-        z-index: 10000;
+        z-index: 10001;
         transition: opacity 1s ease-out .5s;
     }
 
@@ -91,7 +91,7 @@ h1 {
 a {
     text-decoration: none;
     color: #3c2800;
-    font-weight: 400;
+    font-weight: 600;
 }
 
 a:hover {
@@ -237,6 +237,7 @@ a.mapIt::after {
         }
 
         #button:hover {
+            cursor: pointer;
             background:
                 linear-gradient(217deg, rgba(12, 0, 181, 0.1), rgba(255,0,0,0) 70.71%),
                 linear-gradient(127deg, rgba(6, 177, 26, 0.1), rgba(0,255,0,0) 70.71%),
@@ -246,6 +247,7 @@ a.mapIt::after {
         }
 
         #button:active {
+            cursor: auto;
             background-color: rgba(216, 216, 216, .9);
             color: rgba(0, 0, 0, .7);
             box-shadow: 0px 2px 1px rgba(0, 0, 0, .2);
