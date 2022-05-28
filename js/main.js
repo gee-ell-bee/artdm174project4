@@ -18,10 +18,10 @@ for (let i = 0; i < allStatesData.features.length; i++) {
  //onLoad animation html elem
  const curtain = document.getElementById("curtain");
 
+ // offsetting spacing for header
  var header = document.querySelector("header").offsetHeight;
  let main = document.querySelector("#main").style;
  let docHtml = document.querySelector("html").style;
- console.log(header, docHtml, main);
 
  //for HTML Form
  const searchButton = document.getElementById("button");
@@ -106,7 +106,7 @@ L.geoJson(otherStates).setStyle({
         document.addEventListener("DOMContentLoaded", init);
 
         window.addEventListener("resize", () => {
-            var header = header;
+            var header = document.querySelector("header").offsetHeight;
             docHtml = header + "px";
         });
 
@@ -115,12 +115,10 @@ L.geoJson(otherStates).setStyle({
 
 // **************** FUNCTIONS ***************************************************
 function init() {
-    // find scroll offset
-
-    console.log(header);
+    // find initial scroll offset
     main.marginTop = header + "px";
     docHtml.scrollPaddingTop = header + "px";
-    console.log(docHtml, document.querySelector("html"));
+
     // show data
         // update placeholder & title text to match initial
         updateHTMLElem();
@@ -148,7 +146,7 @@ async function search(e) { // final search function; connector of all search asy
         await searchCities();
         onLaterLoad();
         await removeParks();
-        await filterParks();;
+        await filterParks();
         
         // then update entire page
         refreshWholeApp();
@@ -214,19 +212,35 @@ async function search(e) { // final search function; connector of all search asy
         };
     };
 
-async function refreshMap() {
-    // update map elem
-     map.setView([place.lat, place.lon]);
-    // update You Are Here Marker
-     youreHereMarker.setLatLng([place.lat, place.lon]);
-};
-
 async function refreshWholeApp() { // updates elements that weren't cleared out with the new data
     // update placeholder & title to match new place
      updateHTMLElem();
     // update map data
      refreshMap();
 };
+
+    function updateHTMLElem() {
+        // update placeholder & title to match new place
+        updatePlaceholder();
+        updateTitle();
+    };
+
+        function updatePlaceholder() {
+            // change placeholder text to currently search place
+            searchField.placeholder = place.name;
+        };
+
+        function updateTitle() {
+            // update title span contents
+            placeElem.innerHTML = `${place.name}`;
+        };
+
+    async function refreshMap() {
+        // update map elem
+        map.setView([place.lat, place.lon]);
+        // update You Are Here Marker
+        youreHereMarker.setLatLng([place.lat, place.lon]);
+    };
 
 async function getParks() { // get tomtom parks data
     try {
@@ -243,6 +257,8 @@ async function filterParks() {
     try {
         // get park data from getParks f(x)
         let fullList = await getParks();
+        // clear existing content
+        list.innerHTML = "";
         // iterate through parks
         fullList.forEach((park) => {
             // filter to parks within limit range
@@ -268,11 +284,14 @@ async function filterParks() {
 
                         // create plot point for park
                          var parkMarker = L.marker(
-                            [park.position.lat, park.position.lon], {icon: mapIcon}).addTo(parksLayer)
+                            [park.position.lat, park.position.lon], {icon: mapIcon, class: `m${park.id}`}).addTo(parksLayer)
                          // create pop-up with basic info -- for later: include link to html list item?
                           .bindPopup(`<h1>${park.poi.name}</h1>
                             <p><a href="${url}#p${parkContent.id}">Details</a></p>`)
                          ;
+                        
+                        // add ID for plot point
+                         parkMarker.getElement().id = `m${park.id}`;
                 };
             };
         });
@@ -280,22 +299,6 @@ async function filterParks() {
         console.log("Parks Filter Error:", err)
     };
 };
-
-function updateHTMLElem() {
-    // update placeholder & title to match new place
-     updatePlaceholder();
-     updateTitle();
-};
-
-    function updatePlaceholder() {
-        // change placeholder text to currently search place
-         searchField.placeholder = place.name;
-    };
-
-    function updateTitle() {
-        // update title span contents
-         placeElem.innerHTML = `${place.name}`;
-    };
 
 
 // *********************** CONSTRUCTORS *********************************
