@@ -114,7 +114,7 @@ a:active {
         padding: 3rem;
         background-color: var(--accentColor);
         text-align: center;
-        position:sticky;
+        position:fixed;
         width: 100vw;
         top: 0;
         left: 0;
@@ -242,42 +242,40 @@ a:active {
 
 /* #region MOBILE container/main */
     main {
-        margin: 4rem auto;
-        padding: 0 4rem;
+        margin: auto;
+        padding: 5rem 4rem;
         width: auto;
-        max-width: 1500px;
+        max-width: 1125px;
         height: auto;
-        display: grid;
-        grid-template-columns: 1fr;
-        grid-gap: 3rem;
     }
 
     .content {
         width: 100%;
         height: 100%;
         min-height: 25vh;
+        display: grid;
+        grid-template-columns: 1fr;
+        grid-gap: 3rem;
     }
 
     #map {
         height: 50vh;
         border-radius: 4px;
-        border: 3rem solid;
+        border: 1px solid;
     }
 
-    /* #region MOBILE park list */
+    /* #region DESKTOP park list */
 
         /* gradient */
             div.wrap {
                 position: relative;
-                margin: 2rem 0;
-                border: 3px dotted;
+                margin: auto;
             }
 
             div#gradient { /* bottom-end gradient */
-                border: 2px dashed;
                 background: linear-gradient(to bottom,
-                    transparent 90%,
-                    white 99%);
+                    transparent 95%,
+                    var(--bgColor));
                 z-index: 1;
                 position: absolute;
                 width: 100%;
@@ -302,6 +300,7 @@ a:active {
 
             ol li {
                 counter-increment: parksCounter;
+                margin: .25rem 1rem .25rem 5rem;
             }
 
             ol li::before {
@@ -325,7 +324,6 @@ a:active {
 
             #parkList {
                 padding: 0 2rem 2rem 2rem;
-                border: 2px solid;
                 display: grid;
                 grid-template-columns: 1fr 1fr;
                 grid-gap: 2rem;
@@ -336,15 +334,15 @@ a:active {
                 flex-direction: column;
                 justify-content: space-evenly;
                 position: relative;
-                margin: .25rem 1rem .25rem 4rem;
                 background-color: #F5E7D7;
                 padding: 1.5rem;
                 border-radius: 12px;
             }
         
         /* park list links */
-            a.mapIt {
-                display: block;
+            a.googleMap {
+                display: flex;
+                align-items: center;
                 /* experiment
                 position: relative; */
                 margin: 1rem auto .5rem auto;
@@ -371,8 +369,24 @@ a:active {
                 text-decoration: none;
                 transition: color .5s ease-in-out, box-shadow .125s ease-in-out;
             }
+
+            /* google icon
+            a.googleMap::before {
+                display: flex;
+                width: 1rem;
+                height: 1rem;
+                content: url(images/google.svg);
+                margin-right: .25rem;
+            } */
+
+            a.googleMap::after {
+                margin: .25rem -.25rem auto .25rem;
+                width: 1rem;
+                content: url(images/newwindow.svg);
+                opacity: .7;
+            }
             
-            a.mapIt:hover {
+            a.googleMap:hover {
                 color: rgba(60, 40, 0, .75);
                 box-shadow: 0 0 3px rgba(0, 0, 0, .3);
                 background-image:
@@ -381,28 +395,14 @@ a:active {
                     linear-gradient(336deg, rgba(129, 37, 172, 0.1), rgba(0,0,255,0) 70.71%);
             }
 
-            a.mapIt:active {
+            a.googleMap:active {
                 box-shadow: 0 0 1px rgba(0, 0, 0, .3);
             }
-
-            /* experiment
-            a.mapIt::before {
-                content: "\2192";
-                right: -2rem;
-                top: 1rem;
-            }
-            
-            a.mapIt::after {
-                content: "\2192";
-            
-                right: -2rem;
-                top: 1rem;
-            } */
 
         /* #endregion */
 
 
-    /* #region MOBILE footer */
+    /* #region DESKTOP footer */
         footer {
             margin: 0;
             padding: 2rem;
@@ -430,21 +430,19 @@ a:active {
             margin: 1rem;
         }
     /* #endregion */
+
 /* #endregion */
 
-/* #region MOBILE */
+/* #region MOBILE media query */
 @media screen and (max-width: 700px) {
-     main {
-        margin: 7vmin;
-        width: auto;
-        height: auto;
-        display: grid;
-        grid-template-columns: 1fr;
+
+    header {
+        padding: 7vmin;
     }
 
     .search #search {
-        margin-left: 2vmin;
-        padding: 1vmin 2vmin;
+        margin-left: 3vmin;
+        padding: 1vmin 3vmin;
     }
 
     .searchLabel span {
@@ -453,6 +451,13 @@ a:active {
 
     #button {
         padding: 0 2vmin;
+    }
+
+    main {
+        margin: 7vmin;
+        padding: 0;
+        width: auto;
+        height: auto;
     }
 
     .content .parkList {

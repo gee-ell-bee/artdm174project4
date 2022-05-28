@@ -2,25 +2,37 @@ import { Locat } from "./locat.js"; // import API keys
 import { caCities } from "./ca-cities-json.js"; // import cities data
 import { allStatesData } from "./geojson.js"; // geoJSON data
 
+// blank array for new states data collection
 let otherStates = new StateCollection();
 
+// filter out CA from states data
 for (let i = 0; i < allStatesData.features.length; i++) {
     let state = allStatesData.features[i];
     if (state.properties.name !== "California") {
+        // place in new states data array
         otherStates.features.push(state);
     };
 };
 
-// create global vars for HTML Form
+// create global vars
+ //onLoad animation html elem
+ const curtain = document.getElementById("curtain");
+
+ var header = document.querySelector("header").offsetHeight;
+ let main = document.querySelector("#main").style;
+ let docHtml = document.querySelector("html").style;
+ console.log(header, docHtml, main);
+
+ //for HTML Form
  const searchButton = document.getElementById("button");
  const searchField = document.getElementById("search");
  const url = "";
  const errors = document.getElementById("err");
 
- const curtain = document.getElementById("curtain");
-
-// create global vars
+ //for parks
+ //park list html elem
  let list = document.getElementById("parkList");
+ //convert cities import data to constant
  const caCitiesData = caCities;
  //vars for place info use
  let placeElem = document.getElementById("placeName");
@@ -48,7 +60,7 @@ for (let i = 0; i < allStatesData.features.length; i++) {
     }
  };
 
-// init map
+// ************* INIT MAP ******************************
  let map = L.map("map").setView([place.lat, place.lon], 10);
  L.tileLayer("https://{s}.basemaps.cartocdn.com/rastertiles/voyager_labels_under/{z}/{x}/{y}{r}.png", {
     attribution: "&copy; <a href='https://www.openstreetmap.org/copyright'>OpenStreetMap</a> contributors &copy; <a href='https://carto.com/attributions'>CARTO</a>",
@@ -57,11 +69,7 @@ for (let i = 0; i < allStatesData.features.length; i++) {
     maxZoom: 20})
     .addTo(map);
 
-
-// test: fetch GeoJSON
-//returnGeoJSON();
-
-// deaccentuate other states
+// deaccentuate other states w/ GeoJSON
 L.geoJson(otherStates).setStyle({
         stroke: false,
         fillColor: "#a3a3a3",
@@ -79,22 +87,40 @@ L.geoJson(otherStates).setStyle({
     radius: 7,
     fillOpacity: .3
  })
-    .on("move", function() { //rename marker when place name changes
+    .on("move", function() { //event listener: rename marker when place name changes
         youreHereMarker.setPopupContent(`<h2>${place.name}</h2>`);
     })
     .addTo(map)
     .bindPopup(`<h2>${place.name}</h2>`)
  ;
 
-//  **************** ACTUAL SCRIPTS RUN ON PAGE
+ // create custom icon, coded & designed by Alex Maddux
+  //for park markers in filterParks()
+ var mapIcon = L.icon({
+    iconUrl: 'images/pin.png',
+    iconSize: [50, 50], // size of the icon
+ });
+
+//  **************** ACTUAL SCRIPTS RUN ON PAGE ********************************
         // add initial data & search button functionality
         document.addEventListener("DOMContentLoaded", init);
+
+        window.addEventListener("resize", () => {
+            var header = header;
+            docHtml = header + "px";
+        });
 
         // attach curtain animation to document
         document.onLoad = onFirstLoad();
 
-// **************** FUNCTIONS
+// **************** FUNCTIONS ***************************************************
 function init() {
+    // find scroll offset
+
+    console.log(header);
+    main.marginTop = header + "px";
+    docHtml.scrollPaddingTop = header + "px";
+    console.log(docHtml, document.querySelector("html"));
     // show data
         // update placeholder & title text to match initial
         updateHTMLElem();
@@ -105,6 +131,7 @@ function init() {
      searchButton.addEventListener("click", search);
 };
 
+// NOT CURRENTLY IN USE
 function searchInput(e) { // update recommended places list as user types
     // get search input
      let value = e.target.value;
@@ -131,7 +158,7 @@ async function search(e) { // final search function; connector of all search asy
     };
 };
 
-    async function removeParks() {
+    async function removeParks() { // clear previous data
         // remove old park markers
         parksLayer.clearLayers();
 
@@ -163,7 +190,7 @@ async function search(e) { // final search function; connector of all search asy
             let exists = false;
             // for loop to scan through cities
             for (let i = 0; i < caCitiesData.length; i++) {
-                // labeling for clarity; as if wrote "forEach((caCity) =>)"
+                // labeling for clarity: as if wrote "forEach((caCity) =>)"
                 let caCity = caCitiesData[i];
                 // specifying the city data object
                 let cityData = caCity.city;
@@ -194,7 +221,7 @@ async function refreshMap() {
      youreHereMarker.setLatLng([place.lat, place.lon]);
 };
 
-async function refreshWholeApp() {
+async function refreshWholeApp() { // updates elements that weren't cleared out with the new data
     // update placeholder & title to match new place
      updateHTMLElem();
     // update map data
@@ -234,17 +261,12 @@ async function filterParks() {
                             // populate list item
                             newListItem.innerHTML = `<h1>${parkContent.name}</h1>
                                 <p class="address">${parkContent.address}</p>
-                                <a class="mapIt" target="_blank" href="https://www.google.com/maps/search/${parkContent.nameUrl}/@${parkContent.lat},${parkContent.lon}">Get Directions</a>`;
+                                <a class="googleMap" target="_blank" href="https://www.google.com/maps/search/${parkContent.nameUrl}/@${parkContent.lat},${parkContent.lon}">Directions</a>`;
                             // append list item to list
                             newLI.appendChild(newListItem);
                             list.appendChild(newLI);
 
                         // create plot point for park
-                        var mapIcon = L.icon({
-                            iconUrl: 'images/pin.png',
-                            iconSize:     [50, 50], // size of the icon
-                        })
-
                          var parkMarker = L.marker(
                             [park.position.lat, park.position.lon], {icon: mapIcon}).addTo(parksLayer)
                          // create pop-up with basic info -- for later: include link to html list item?
@@ -276,10 +298,11 @@ function updateHTMLElem() {
     };
 
 
+// *********************** CONSTRUCTORS *********************************
 // park constructor
 function Park(id, lat, lon, name, address) {
-    // info for server use
-     this.id = id; // for matching to map marker
+    // server-side info
+     this.id = id; // for linking html elem from map marker
      this.lat = lat;
      this.lon = lon;
      this.nameUrl = name.replaceAll(" ", "+");
@@ -314,28 +337,3 @@ function openCurtains() { // start curtain animation
     // on start animation
     curtain.classList.toggle("opened");
 };
-
-/* test: import GeoJSON data
-async function getGeoJSON() {
-    try {
-        let response = await fetch("https://leafletjs.com/examples/choropleth/us-states.js")
-        let initData = await response.json();
-        return initData;
-    } catch(err) {
-        console.log("Get GeoJSON Err:", err);
-    }
-}
-
-async function returnGeoJSON() {
-    try {
-        let statesData = await getGeoJSON();
-        L.geoJson(statesData).setStyle({
-            weight: 5,
-            fill: false,
-            interactive: false
-        })
-        .addTo(map);
-    } catch(err) {
-        console.log("Put GeoJSON err:", err)
-    }
-} */
