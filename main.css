@@ -20,8 +20,11 @@
 
         /* CSS VARS */
         --accentColor: #81cbe3; /* orig #56CCF2 */
+        --h2Color: rgba(0, 0, 0, 0.702); /* 0.161 diff in h2 opacity vals*/
+        --h2PlaceColor:  rgba(0, 0, 0, 0.863);
         --errorColor: #ed4b4b;
         --bgColor: white;
+        --linkColor: #3c2800;
 
         background-color: var(--bgColor);
     }
@@ -84,8 +87,12 @@
 /* general styles */
 
 h1 {
+    color: rgb(38, 38, 38);
+}
+
+h2 {
     font-weight: 600;
-    color: rgb(56, 56, 56);
+    color: var(--h2Color);
 }
 
 a {
@@ -102,53 +109,7 @@ a:active {
     opacity: .7;
 }
 
-#parkList li {
-    display: flex;
-    flex-direction: column;
-    justify-content: space-evenly;
-}
-
-a.mapIt {
-    display: block;
-    /* experiment
-    position: relative; */
-    margin: 1rem auto .5rem auto;
-    text-align: center;
-    width: fit-content;
-    background:
-        linear-gradient(217deg, rgba(0, 76, 255, 0.2), rgba(255,0,0,0) 70.71%),
-        linear-gradient(127deg, rgba(255, 230, 0, 0.2), rgba(0,255,0,0) 70.71%),
-        linear-gradient(336deg, rgba(0, 255, 0,.2), rgba(0,0,255,0) 70.71%);
-    /* background:
-        linear-gradient(217deg, rgba(255,0,0,.4), rgba(255,0,0,0) 70.71%),
-        linear-gradient(127deg, rgba(0,255,0,.4), rgba(0,255,0,0) 70.71%),
-        linear-gradient(336deg, rgba(0,0,255,.4), rgba(0,0,255,0) 70.71%); */
-    color: #3c2800;
-    font-weight: 600;
-    box-shadow: 0 3px 5px rgba(0, 0, 0, .3);
-    border-bottom: 2px solid rgba(0, 0, 0, .3);
-    border-right: 2px solid rgba(0, 0, 0, .3);
-    /* border-top: 3px solid mediumseagreen;
-    border-left: 2px solid mediumseagreen; */
-    border-radius: 12px;
-    padding: .5rem 1rem;
-    text-decoration: none;
-}
-/* experiment
-a.mapIt::before {
-    content: "\2192";
-    right: -2rem;
-    top: 1rem;
-}
-
-a.mapIt::after {
-    content: "\2192";
-
-    right: -2rem;
-    top: 1rem;
-} */
-
-/* #region MOBILE header */
+/* #region DESKTOP header */
     header {
         padding: 3rem;
         background-color: var(--accentColor);
@@ -164,11 +125,11 @@ a.mapIt::after {
         font-size: 2.5rem;
     }
 
-    h1 #placeName {
-        color: black;
+    h2 #placeName {
+        color: var(--h2PlaceColor);
     }
 
-    /* #region Searchbar */
+    /* #region DESKTOP Searchbar */
         form {
             display: flex;
             justify-content: center;
@@ -220,6 +181,7 @@ a.mapIt::after {
         /* Search Button */
         #button {
             padding: 0 1.5rem;
+            opacity: 1;
             margin: 0 .25rem;
             border-radius: .75rem;
             border-right: none;
@@ -227,29 +189,33 @@ a.mapIt::after {
             border-bottom: 2px solid rgb(103, 172, 195);
             border-left: 2px solid rgb(103, 172, 195);
             font-size: 1.25rem;
-            font-weight: 400;
+            font-weight: 600;
+            color:var(--linkColor);
+            background:
+                linear-gradient(217deg, rgba(0, 76, 255, 0.2), rgba(255,0,0,0) 70.71%),
+                linear-gradient(127deg, rgba(255, 230, 0, 0.2), rgba(0,255,0,0) 70.71%),
+                linear-gradient(336deg, rgba(0, 255, 0, 0.2), rgba(0,0,255,0) 70.71%);
+                /* old BG colors
+                linear-gradient(217deg, rgba(12, 0, 181, 0.2), rgba(255,0,0,0) 70.71%),
+                linear-gradient(127deg, rgba(6, 177, 26, 0.2), rgba(0,255,0,0) 70.71%),
+                linear-gradient(336deg, rgba(129, 37, 172, 0.2), rgba(0,0,255,0) 70.71%); */
+            box-shadow: 2px 2px 4px rgba(0, 0, 0, .2);
+            transition: opacity .25s ease-in-out, background-color .25s ease-in-out;
+        }
+
+        #button:hover {
+            opacity: .75;
+            cursor: pointer;
             background:
                 linear-gradient(217deg, rgba(12, 0, 181, 0.2), rgba(255,0,0,0) 70.71%),
                 linear-gradient(127deg, rgba(6, 177, 26, 0.2), rgba(0,255,0,0) 70.71%),
                 linear-gradient(336deg, rgba(129, 37, 172, 0.2), rgba(0,0,255,0) 70.71%);
-            box-shadow: 2px 2px 4px rgba(0, 0, 0, .2);
-            transition: all .25s ease-in 0;
-        }
-
-        #button:hover {
-            cursor: pointer;
-            background:
-                linear-gradient(217deg, rgba(12, 0, 181, 0.1), rgba(255,0,0,0) 70.71%),
-                linear-gradient(127deg, rgba(6, 177, 26, 0.1), rgba(0,255,0,0) 70.71%),
-                linear-gradient(336deg, rgba(129, 37, 172, 0.1), rgba(0,0,255,0) 70.71%);
-            color: rgba(0, 0, 0, .7);
-
         }
 
         #button:active {
-            cursor: auto;
+            opacity: .6;
+            cursor: pointer;
             background-color: rgba(216, 216, 216, .9);
-            color: rgba(0, 0, 0, .7);
             box-shadow: 0px 2px 1px rgba(0, 0, 0, .2);
         }
     /* #endregion */
@@ -265,6 +231,7 @@ a.mapIt::after {
             font-weight: 400;
         }
 
+        /* input text styling */
         span.universal {
             font-size: 1rem;
             display: inline;
@@ -293,76 +260,146 @@ a.mapIt::after {
 
     #map {
         height: 50vh;
+        border-radius: 4px;
         border: 3rem solid;
     }
 
     /* #region MOBILE park list */
 
         /* gradient */
-        div.wrap {
-            position: relative;
-        }
-        div#gradient {
-            background: linear-gradient(to bottom,
-            transparent 90%,
-            white 99%);
-            z-index: 1;
-            position: absolute;
-            width: 100%;
-            height: 100%;
-            top: 0;
-            left: 0;
-            pointer-events: none;
-        }
+            div.wrap {
+                position: relative;
+                margin: 2rem 0;
+                border: 3px dotted;
+            }
+
+            div#gradient { /* bottom-end gradient */
+                border: 2px dashed;
+                background: linear-gradient(to bottom,
+                    transparent 90%,
+                    white 99%);
+                z-index: 1;
+                position: absolute;
+                width: 100%;
+                height: 100%;
+                top: 0;
+                left: 0;
+                pointer-events: none;
+            }
+
         /* list container */
-        .content .parkList {
-            margin: 2rem 0;
-            overflow-y: scroll;
-            max-height: 60vh;
-        }
+            .content .parkList {
+                overflow-y: scroll;
+                max-height: 60vh;
+                scrollbar-color: var(--accentColor);
+            }
 
-        /* general list creator for counter */
-        ol {
-            list-style-type: none;
-            counter-reset: parksCounter;
-        }
+        /* general list styling for counter */
+            ol {
+                list-style-type: none;
+                counter-reset: parksCounter;
+            }
 
-        ol li {
-            counter-increment: parksCounter;
-        }
+            ol li {
+                counter-increment: parksCounter;
+            }
 
-        ol li::before {
-            content: counter(parksCounter);
-            position: absolute;
-            left: -5rem;
-            font-style: italic;
-            text-indent: 1rem;
-            text-align: right;
-            line-height: -2rem;
-            font-size: 3rem;
-            font-weight: 600;
-            width: 3rem;
-            height: 3rem;
-            color: black;
-            background: var(--accentColor);
-            border-radius: 50%;
-        }
+            ol li::before {
+                content: counter(parksCounter);
+                position: absolute;
+                left: -5rem;
+                font-style: italic;
+                text-indent: 1rem;
+                text-align: right;
+                line-height: -2rem;
+                font-size: 3rem;
+                font-weight: 600;
+                width: 3rem;
+                height: 3rem;
+                color: black;
+                background: var(--accentColor);
+                border-radius: 50%;
+            }
 
-        #parkList {
-            padding: 0 2rem 2rem 2rem;
-            display: grid;
-            grid-template-columns: 1fr 1fr;
-            grid-gap: 2rem;
-        }
+        /* park list-specific styling */
 
-        #parkList li {
-            position: relative;
-            margin: .25rem 1rem .25rem 4rem;
-            background-color: #F5E7D7;
-            padding: 1.5rem;
-            border-radius: 12px;
-        }
-    /* #endregion */
+            #parkList {
+                padding: 0 2rem 2rem 2rem;
+                border: 2px solid;
+                display: grid;
+                grid-template-columns: 1fr 1fr;
+                grid-gap: 2rem;
+            }
+
+            #parkList li {
+                display: flex;
+                flex-direction: column;
+                justify-content: space-evenly;
+                position: relative;
+                margin: .25rem 1rem .25rem 4rem;
+                background-color: #F5E7D7;
+                padding: 1.5rem;
+                border-radius: 12px;
+            }
+        
+        /* park list links */
+            a.mapIt {
+                display: block;
+                /* experiment
+                position: relative; */
+                margin: 1rem auto .5rem auto;
+                text-align: center;
+                width: fit-content;
+                background-image:
+                    linear-gradient(217deg, rgba(0, 76, 255, 0.2), rgba(255,0,0,0) 70.71%),
+                    linear-gradient(127deg, rgba(255, 230, 0, 0.2), rgba(0,255,0,0) 70.71%),
+                    linear-gradient(336deg, rgba(0, 255, 0, 0.2), rgba(0,0,255,0) 70.71%);
+                /* full color spectrum bg
+                background:
+                    linear-gradient(217deg, rgba(255,0,0,.4), rgba(255,0,0,0) 70.71%),
+                    linear-gradient(127deg, rgba(0,255,0,.4), rgba(0,255,0,0) 70.71%),
+                    linear-gradient(336deg, rgba(0,0,255,.4), rgba(0,0,255,0) 70.71%); */
+                color: var(--linkColor);
+                font-weight: 600;
+                box-shadow: 0 3px 5px rgba(0, 0, 0, .3);
+                border-bottom: 2px solid rgba(0, 0, 0, .3);
+                border-right: 2px solid rgba(0, 0, 0, .3);
+                /* border-top: 3px solid mediumseagreen;
+                border-left: 2px solid mediumseagreen; */
+                border-radius: 12px;
+                padding: .5rem 1rem;
+                text-decoration: none;
+                transition: color .5s ease-in-out, box-shadow .125s ease-in-out;
+            }
+            
+            a.mapIt:hover {
+                color: rgba(60, 40, 0, .75);
+                box-shadow: 0 0 3px rgba(0, 0, 0, .3);
+                background-image:
+                    linear-gradient(217deg, rgba(0, 76, 255, 0.1), rgba(255,0,0,0) 70.71%),
+                    linear-gradient(127deg, rgba(255, 230, 0, 0.1), rgba(0,255,0,0) 70.71%),
+                    linear-gradient(336deg, rgba(129, 37, 172, 0.1), rgba(0,0,255,0) 70.71%);
+            }
+
+            a.mapIt:active {
+                box-shadow: 0 0 1px rgba(0, 0, 0, .3);
+            }
+
+            /* experiment
+            a.mapIt::before {
+                content: "\2192";
+                right: -2rem;
+                top: 1rem;
+            }
+            
+            a.mapIt::after {
+                content: "\2192";
+            
+                right: -2rem;
+                top: 1rem;
+            } */
+
+        /* #endregion */
 
 
     /* #region MOBILE footer */

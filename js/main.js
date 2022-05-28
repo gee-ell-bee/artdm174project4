@@ -1,5 +1,15 @@
-import { Keychain } from "./keys.js"; // import API keys
+import { Locat } from "./locat.js"; // import API keys
 import { caCities } from "./ca-cities-json.js"; // import cities data
+import { allStatesData } from "./geojson.js"; // geoJSON data
+
+let otherStates = new StateCollection();
+
+for (let i = 0; i < allStatesData.features.length; i++) {
+    let state = allStatesData.features[i];
+    if (state.properties.name !== "California") {
+        otherStates.features.push(state);
+    };
+};
 
 // create global vars for HTML Form
  const searchButton = document.getElementById("button");
@@ -12,7 +22,7 @@ import { caCities } from "./ca-cities-json.js"; // import cities data
 // create global vars
  let list = document.getElementById("parkList");
  const caCitiesData = caCities;
- //for place info
+ //vars for place info use
  let placeElem = document.getElementById("placeName");
  var placeName = "Alamo";
  var placeLat = 37.85020000;
@@ -43,7 +53,21 @@ import { caCities } from "./ca-cities-json.js"; // import cities data
  L.tileLayer("https://{s}.basemaps.cartocdn.com/rastertiles/voyager_labels_under/{z}/{x}/{y}{r}.png", {
     attribution: "&copy; <a href='https://www.openstreetmap.org/copyright'>OpenStreetMap</a> contributors &copy; <a href='https://carto.com/attributions'>CARTO</a>",
     subdomains: "abcd",
+    minZoom: 5,
     maxZoom: 20})
+    .addTo(map);
+
+
+// test: fetch GeoJSON
+//returnGeoJSON();
+
+// deaccentuate other states
+L.geoJson(otherStates).setStyle({
+        stroke: false,
+        fillColor: "#a3a3a3",
+        fillOpacity: .7,
+        interactive: false
+    })
     .addTo(map);
 
 // create layer group for all parks in place range
@@ -55,37 +79,21 @@ import { caCities } from "./ca-cities-json.js"; // import cities data
     radius: 7,
     fillOpacity: .3
  })
-    .on("move", function() {
+    .on("move", function() { //rename marker when place name changes
         youreHereMarker.setPopupContent(`<h2>${place.name}</h2>`);
     })
     .addTo(map)
     .bindPopup(`<h2>${place.name}</h2>`)
  ;
 
-document.addEventListener("DOMContentLoaded", init);
-document.onLoad = onFirstLoad();
+//  **************** ACTUAL SCRIPTS RUN ON PAGE
+        // add initial data & search button functionality
+        document.addEventListener("DOMContentLoaded", init);
 
-function toggleAfterClass() {
-    curtain.classList.toggle("after");
-};
+        // attach curtain animation to document
+        document.onLoad = onFirstLoad();
 
-function onFirstLoad() {
-    console.log(curtain);
-    curtain.addEventListener("animationend", toggleAfterClass);
-    openCurtains();
-    console.log(curtain);
-};
-
-function onLaterLoad() {
-    curtain.classList.toggle("opened");
-    openCurtains();
-};
-
-function openCurtains() {
-    // on start animation
-    curtain.classList.toggle("opened");
-};
-
+// **************** FUNCTIONS
 function init() {
     // show data
         // update placeholder & title text to match initial
@@ -195,7 +203,7 @@ async function refreshWholeApp() {
 
 async function getParks() { // get tomtom parks data
     try {
-        let response = await fetch(`https://api.tomtom.com/search/2/poiSearch/dog+park.json?key=${Keychain.tom.pass}&limit=100&ofs=0&countryset=US&lat=${place.lat}&lon=${place.lon}&topLeft=${place.top(place.lat)},${place.left(place.lon)}&btmRight=${place.btm(place.lat)},${place.right(place.lon)}&language=en-US&categoryset=9362&relatedpois=all`);
+        let response = await fetch(`https://api.tomtom.com/search/2/poiSearch/dog+park.json?key=${Locat.tom.pass}&limit=100&ofs=0&countryset=US&lat=${place.lat}&lon=${place.lon}&topLeft=${place.top(place.lat)},${place.left(place.lon)}&btmRight=${place.btm(place.lat)},${place.right(place.lon)}&language=en-US&categoryset=9362&relatedpois=all`);
         let baseData = await response.json();
         let data = baseData.results;
         return data;
@@ -203,7 +211,6 @@ async function getParks() { // get tomtom parks data
         console.log("Parks Fetch Error:", err);
     };
 };
-
 
 async function filterParks() {
     try {
@@ -219,26 +226,23 @@ async function filterParks() {
                     // create a Park object for each park
                      var parkContent = new Park(park.id, park.position.lat, park.position.lon, park.poi.name, park.address.freeformAddress);
                         // LIST ITEM for each park
-                        // create list item
-                         let newLI = new DocumentFragment;
-                         let newListItem = document.createElement("LI");
-                        // add identifier
-                         newListItem.id = `p${parkContent.id}`;
-                        // populate list item
-                         newListItem.innerHTML = `<h1>${parkContent.name}</h1>
-                            <p class="address">${parkContent.address}</p>
-                            <a class="mapIt" target="_blank" href="https://www.google.com/maps/search/${parkContent.nameUrl}/@${parkContent.lat},${parkContent.lon}">Get Directions</a>`;
-                        // append list item to list
-                         newLI.appendChild(newListItem);
-                         list.appendChild(newLI);
+                            // create list item
+                            let newLI = new DocumentFragment;
+                            let newListItem = document.createElement("LI");
+                            // add identifier
+                            newListItem.id = `p${parkContent.id}`;
+                            // populate list item
+                            newListItem.innerHTML = `<h1>${parkContent.name}</h1>
+                                <p class="address">${parkContent.address}</p>
+                                <a class="mapIt" target="_blank" href="https://www.google.com/maps/search/${parkContent.nameUrl}/@${parkContent.lat},${parkContent.lon}">Get Directions</a>`;
+                            // append list item to list
+                            newLI.appendChild(newListItem);
+                            list.appendChild(newLI);
 
                         // create plot point for park
-
                         var mapIcon = L.icon({
                             iconUrl: 'images/pin.png',
                             iconSize:     [50, 50], // size of the icon
-                            
-                            
                         })
 
                          var parkMarker = L.marker(
@@ -285,3 +289,53 @@ function Park(id, lat, lon, name, address) {
      this.address = address;
      this.favorite = false; // for caching
 };
+
+function StateCollection() {
+    this.features = [];
+    this.type = "FeatureCollection";
+}
+
+// onLoad Curtain
+function onFirstLoad() { // initial curtain function
+    curtain.addEventListener("animationend", toggleAfterClass);
+    openCurtains();
+};
+
+    function toggleAfterClass() { // remove "after" class
+        curtain.classList.toggle("after");
+    };
+
+function onLaterLoad() { // reload page (after searching places) curtain function
+    curtain.classList.toggle("opened");
+    openCurtains();
+};
+
+function openCurtains() { // start curtain animation
+    // on start animation
+    curtain.classList.toggle("opened");
+};
+
+/* test: import GeoJSON data
+async function getGeoJSON() {
+    try {
+        let response = await fetch("https://leafletjs.com/examples/choropleth/us-states.js")
+        let initData = await response.json();
+        return initData;
+    } catch(err) {
+        console.log("Get GeoJSON Err:", err);
+    }
+}
+
+async function returnGeoJSON() {
+    try {
+        let statesData = await getGeoJSON();
+        L.geoJson(statesData).setStyle({
+            weight: 5,
+            fill: false,
+            interactive: false
+        })
+        .addTo(map);
+    } catch(err) {
+        console.log("Put GeoJSON err:", err)
+    }
+} */

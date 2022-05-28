@@ -6,7 +6,7 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-    <title>Dog Park App</title>
+    <title>CA Dog Park Finder</title>
     <meta name="author" content="Grey Larrain Bratt, Alex Maddux, Dorena Hinh">
 
     <link rel="icon" href="https://grey.gettheball.com/content/favicon.png" type="image/png" />
@@ -33,26 +33,21 @@
     <div id="curtain"></div>
 
     <header>
-        <h1>Dog Parks Near <span id="placeName">You</span>, CA</h1>
+        <h1>California Dog Parks</h1>
+        <h2>Dog Parks Near <span id="placeName">You</span>, CA</h2>
         <section class="search">
             <form id="form">
                 <label for="search" class="searchLabel">
                     <span>Enter Your City</span>
-                    
                     <input id="search" type="search" name="searchbar" placeholder="San Francisco">
                 </label>
-
                 <button id="button" type="submit">Search</button>
-
             </form>
-
             <div id="err"></div>
-
         </section>
     </header>
 
     <main id="main">
-
         <section id="container" class="content">
 
             <section class="map">
@@ -66,9 +61,8 @@
                 <div id="gradient"></div>
             </div>
         </section>
-
-        
     </main>
+
     <footer>
         <nav>
             <ul class="appInfo">
@@ -78,7 +72,8 @@
 
             <ul class="attribution">
                 <li>Park Data Provided By <a href="https://tomtom.com">TomTom</a></li>
-                <li>City Data Provided By <a href="https://countrystatecity.in">CountryStateCity</a></li>
+                <li>City Data From <a href="https://countrystatecity.in">CountryStateCity</a></li>
+                <li>GeoJSON From <a href="https://leafletjs.com/examples/choropleth/">Leaflet</a> &amp; <a href="https://bost.ocks.org/mike/">Mike Bostock</a></li>
             </ul>
         </nav>
     </footer>
