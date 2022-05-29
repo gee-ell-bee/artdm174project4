@@ -61,10 +61,32 @@ for (let i = 0; i < allStatesData.features.length; i++) {
  };
 
 // ************* INIT MAP ******************************
-const topRightBounds = L.latLng(45.565931, -96.724056);
-const btmLeftBounds = L.latLng(29.710447, -143.349077);
-const latLngBounds = L.latLngBounds(btmLeftBounds, topRightBounds);
- let map = L.map("map", {maxBounds: latLngBounds}).setView([place.lat, place.lon], 10);
+// max map bounds vars
+ const topRightBounds = L.latLng(45.565931, -96.724056);
+ const btmLeftBounds = L.latLng(29.710447, -143.349077);
+ const latLngBounds = L.latLngBounds(btmLeftBounds, topRightBounds);
+
+//  // handler for button link to map event
+//  L.LinkToMap = L.Handler.extend({
+//     addHooks: function(e) {
+//         let target = e.target;
+//         L.DomEvent.on(target, "click dbclick", this._highlight, this);
+//     },
+
+//     removeHooks: function(e) {
+//         let target = e.target;
+//         L.DomEvent.off(target, "click", this._highlight, this);
+//     },
+
+//     _highlight: function(e) {
+//        let marker = get(`m${e}`);
+//        this._marker.popupopen;
+//     }
+// });
+
+// L.Map.addInitHook('addHandler', 'highlight', L.LinkToMap);
+
+ let map = L.map("map", {maxBounds: latLngBounds, highlight: true}).setView([place.lat, place.lon], 10);
  L.tileLayer("https://{s}.basemaps.cartocdn.com/rastertiles/voyager_labels_under/{z}/{x}/{y}{r}.png", {
     attribution: "&copy; <a href='https://www.openstreetmap.org/copyright'>OSM</a> contributors &copy; <a href='https://carto.com/attributions'>CARTO</a>",
     subdomains: "abcd",
@@ -90,7 +112,7 @@ L.geoJson(otherStates).setStyle({
     radius: 7,
     fillOpacity: .3,
     title: place.name,
-    alt: "Marks Your Originating Place"
+    alt: "Originating Place"
  })
     .on("move", function() { //event listener: rename marker when place name changes
         youreHereMarker.setPopupContent(`<h2>${place.name}</h2>`);
@@ -106,24 +128,6 @@ L.geoJson(otherStates).setStyle({
     iconSize: [48, 50], // size of the icon
  });
 
- let parkLi = document.querySelector("park");
-
- // handler for button link to map event
- L.LinkToMap = L.Handler.extend({
-     addHooks: function(e) {
-         L.DomEvent.on(e.target, "click dbclick", this._highlight, this);
-     },
-
-     removeHooks: function(e) {
-         L.DomEvent.off(e.target, "click", this._highlight, this);
-     },
-
-     _highlight: function(e) {
-         let string = e.substring(1);
-         this._map;
-     }
- })
-
 //  **************** ACTUAL SCRIPTS RUN ON PAGE ********************************
         // add initial data & search button functionality
         document.addEventListener("DOMContentLoaded", init);
@@ -132,6 +136,8 @@ L.geoJson(otherStates).setStyle({
             var header = document.querySelector("header").offsetHeight;
             docHtml = header + "px";
         });
+
+
 
         // attach curtain animation to document
         document.onLoad = onFirstLoad();
@@ -146,7 +152,7 @@ function init() {
         // update placeholder & title text to match initial
         updateHTMLElem();
         // show parsed parks data points
-        filterParks();
+        connectIds();
 
     // event listener to implement searchbar
      searchButton.addEventListener("click", search);
@@ -170,6 +176,7 @@ async function search(e) { // final search function; connector of all search asy
         onLaterLoad();
         await removeParks();
         await filterParks();
+        await connectIds();
         
         // then update entire page
         refreshWholeApp();
@@ -296,19 +303,7 @@ async function filterParks() {
                 && park.position.lat < place.top(place.lat)) {
                     // create a Park object for each park
                      var parkContent = new Park(park.id, park.position.lat, park.position.lon, park.poi.name, park.address.freeformAddress);
-                        // PLOT POINT for park
-                         var parkMarker = L.marker(
-                            [park.position.lat, park.position.lon], {icon: mapIcon, title: park.poi.name, alt: `Park marker for ${park.poi.name}`}).addTo(parksLayer)
-                         // create pop-up with basic info
-                          .bindPopup(`<h1>${park.poi.name}</h1>
-                            <p><a href="${url}#p${parkContent.id}">Details</a></p>`)
-                         // event listener to open popup
-
-                         ;
                         
-                        // add id for plot point
-                         parkMarker.getElement().id = `m${park.id}`;
-
                         // LIST ITEM for each park
                             // create list item
                             let newLI = new DocumentFragment;
@@ -320,22 +315,43 @@ async function filterParks() {
                             newListItem.innerHTML = `<h1>${parkContent.name}</h1>
                                 <p class="address">${parkContent.address}</p>
                                 <div class="marker links">
-                                    <a class="toMap" onClick="${park.id}" href="#m${park.id}">View on Map</a>
+                                    <a class="toMap" href="#m${park.id}">View on Map</a>
                                     <a class="googleMap" target="_blank" href="https://www.google.com/maps/search/${parkContent.nameUrl}/@${parkContent.lat},${parkContent.lon}">Directions</a>
                                 </div>`;
                             // append list item to list
                             newLI.appendChild(newListItem);
                             list.appendChild(newLI);
-
-                        console.log(newListItem.lastElementChild.firstElementChild);
+                            
+                        // PLOT POINT for park
+                             var parkMarker = L.marker(
+                                [park.position.lat, park.position.lon], {icon: mapIcon, title: park.poi.name, alt: `Park marker for ${park.poi.name}`}).addTo(parksLayer)
+                             // create pop-up with basic info
+                              .bindPopup(`<h1>${park.poi.name}</h1>
+                                <p><a href="${url}#p${parkContent.id}">Details</a></p>`)
+                             // event listener to open popup
+                             ;
+                            
+                            // add id for plot point
+                             parkMarker.getElement().id = `m${park.id}`;
                 };
             };
         });
-        console.log(list);
     } catch(err) {
         console.log("Parks Filter Error:", err)
     };
 };
+
+async function connectIds() {
+    await filterParks();
+    // html element for handler
+    var newLinkList = document.querySelectorAll(".toMap");
+    console.log(newLinkList);
+    newLinkList.forEach(link => {
+        const id = link.id;
+        const marker = document.getElementById(`m${id}`);
+        console.log(marker);
+    });
+}
 
 
 // *********************** CONSTRUCTORS *********************************
