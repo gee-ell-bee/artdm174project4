@@ -134,7 +134,7 @@ L.geoJson(otherStates).setStyle({
 
         window.addEventListener("resize", () => {
             var header = document.querySelector("header").offsetHeight;
-            docHtml = header + "px";
+            docHtml = Number(header) + 20 + "px";
         });
 
 
@@ -145,8 +145,8 @@ L.geoJson(otherStates).setStyle({
 // **************** FUNCTIONS ***************************************************
 function init() {
     // find initial scroll offset
-    main.marginTop = header + "px";
-    docHtml.scrollPaddingTop = header + "px";
+    main.marginTop = Number(header) + 20 + "px";
+    docHtml.scrollPaddingTop = Number(header) + 20 + "px";
 
     // show data
         // update placeholder & title text to match initial
