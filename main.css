@@ -240,11 +240,12 @@ a:active {
 
 /* #endregion */
 
-/* #region MOBILE container/main */
+/* #region DESKTOP container/main */
     main {
-        margin: auto;
-        padding: 5rem 4rem;
+        padding: 0;
         width: auto;
+        height: auto;
+        margin: 4rem;
         max-width: 1125px;
         height: auto;
     }
@@ -252,10 +253,17 @@ a:active {
     .content {
         width: 100%;
         height: 100%;
+        margin: auto;
         min-height: 25vh;
         display: grid;
         grid-template-columns: 1fr;
         grid-gap: 3rem;
+    }
+
+    section.map {
+        margin: auto;
+        padding: 0;
+        width: 100%;
     }
 
     #map {
@@ -460,13 +468,29 @@ a:active {
         height: auto;
     }
 
+    #container {
+        grid-gap: 5vmin;
+    }
+
+    div#gradient { /* bottom-end gradient */
+        background: linear-gradient(to bottom,
+            transparent 95%,
+            var(--bgColor));
+        padding: 0;
+        z-index: 10001;
+        position: absolute;
+        width: 100%;
+        height: 100%;
+        top: 0;
+        left: 0;
+        pointer-events: none;
+    }
+
     .content .parkList {
-        margin: 5vmin 0; 
         max-height: 30vh;
     }
 
     #parkList {
-        padding: 0 5vmin 5vmin 5vmin;
         display: block;
     }
 
