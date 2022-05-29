@@ -47,23 +47,26 @@ for (let i = 0; i < allStatesData.features.length; i++) {
     id: "ca111093",
 
     top: function(lat) {
-        return lat + 0.202553;
+        return lat + 0.51;
     },
     left: function(lon) {
-        return lon - 0.484093;
+        return lon - 0.51;
     },
     btm: function(lat) {
         return lat - 0.51;
     },
     right: function(lon) {
-        return lon + 0.761822;
+        return lon + 0.51;
     }
  };
 
 // ************* INIT MAP ******************************
- let map = L.map("map").setView([place.lat, place.lon], 10);
+const topRightBounds = L.latLng(45.565931, -96.724056);
+const btmLeftBounds = L.latLng(29.710447, -143.349077);
+const latLngBounds = L.latLngBounds(btmLeftBounds, topRightBounds);
+ let map = L.map("map", {maxBounds: latLngBounds}).setView([place.lat, place.lon], 10);
  L.tileLayer("https://{s}.basemaps.cartocdn.com/rastertiles/voyager_labels_under/{z}/{x}/{y}{r}.png", {
-    attribution: "&copy; <a href='https://www.openstreetmap.org/copyright'>OpenStreetMap</a> contributors &copy; <a href='https://carto.com/attributions'>CARTO</a>",
+    attribution: "&copy; <a href='https://www.openstreetmap.org/copyright'>OSM</a> contributors &copy; <a href='https://carto.com/attributions'>CARTO</a>",
     subdomains: "abcd",
     minZoom: 5,
     maxZoom: 20})
@@ -85,7 +88,9 @@ L.geoJson(otherStates).setStyle({
  let youreHereMarker = L.circleMarker([place.lat, place.lon], {
     opacity: .7,
     radius: 7,
-    fillOpacity: .3
+    fillOpacity: .3,
+    title: place.name,
+    alt: "Marks Your Originating Place"
  })
     .on("move", function() { //event listener: rename marker when place name changes
         youreHereMarker.setPopupContent(`<h2>${place.name}</h2>`);
@@ -98,8 +103,26 @@ L.geoJson(otherStates).setStyle({
   //for park markers in filterParks()
  var mapIcon = L.icon({
     iconUrl: 'images/pin.png',
-    iconSize: [50, 50], // size of the icon
+    iconSize: [48, 50], // size of the icon
  });
+
+ let parkLi = document.querySelector("park");
+
+ // handler for button link to map event
+ L.LinkToMap = L.Handler.extend({
+     addHooks: function(e) {
+         L.DomEvent.on(e.target, "click dbclick", this._highlight, this);
+     },
+
+     removeHooks: function(e) {
+         L.DomEvent.off(e.target, "click", this._highlight, this);
+     },
+
+     _highlight: function(e) {
+         let string = e.substring(1);
+         this._map;
+     }
+ })
 
 //  **************** ACTUAL SCRIPTS RUN ON PAGE ********************************
         // add initial data & search button functionality
@@ -253,6 +276,11 @@ async function getParks() { // get tomtom parks data
     };
 };
 
+function getParkMarker(marker) {
+    parkMarker = document.getElementById(marker);
+    parkMarker.togglePopup();
+};
+
 async function filterParks() {
     try {
         // get park data from getParks f(x)
@@ -268,33 +296,42 @@ async function filterParks() {
                 && park.position.lat < place.top(place.lat)) {
                     // create a Park object for each park
                      var parkContent = new Park(park.id, park.position.lat, park.position.lon, park.poi.name, park.address.freeformAddress);
+                        // PLOT POINT for park
+                         var parkMarker = L.marker(
+                            [park.position.lat, park.position.lon], {icon: mapIcon, title: park.poi.name, alt: `Park marker for ${park.poi.name}`}).addTo(parksLayer)
+                         // create pop-up with basic info
+                          .bindPopup(`<h1>${park.poi.name}</h1>
+                            <p><a href="${url}#p${parkContent.id}">Details</a></p>`)
+                         // event listener to open popup
+
+                         ;
+                        
+                        // add id for plot point
+                         parkMarker.getElement().id = `m${park.id}`;
+
                         // LIST ITEM for each park
                             // create list item
                             let newLI = new DocumentFragment;
                             let newListItem = document.createElement("LI");
+                            newListItem.classList.add("park");
                             // add identifier
                             newListItem.id = `p${parkContent.id}`;
                             // populate list item
                             newListItem.innerHTML = `<h1>${parkContent.name}</h1>
                                 <p class="address">${parkContent.address}</p>
-                                <a class="googleMap" target="_blank" href="https://www.google.com/maps/search/${parkContent.nameUrl}/@${parkContent.lat},${parkContent.lon}">Directions</a>`;
+                                <div class="marker links">
+                                    <a class="toMap" onClick="${park.id}" href="#m${park.id}">View on Map</a>
+                                    <a class="googleMap" target="_blank" href="https://www.google.com/maps/search/${parkContent.nameUrl}/@${parkContent.lat},${parkContent.lon}">Directions</a>
+                                </div>`;
                             // append list item to list
                             newLI.appendChild(newListItem);
                             list.appendChild(newLI);
 
-                        // create plot point for park
-                         var parkMarker = L.marker(
-                            [park.position.lat, park.position.lon], {icon: mapIcon, class: `m${park.id}`}).addTo(parksLayer)
-                         // create pop-up with basic info -- for later: include link to html list item?
-                          .bindPopup(`<h1>${park.poi.name}</h1>
-                            <p><a href="${url}#p${parkContent.id}">Details</a></p>`)
-                         ;
-                        
-                        // add ID for plot point
-                         parkMarker.getElement().id = `m${park.id}`;
+                        console.log(newListItem.lastElementChild.firstElementChild);
                 };
             };
         });
+        console.log(list);
     } catch(err) {
         console.log("Parks Filter Error:", err)
     };
