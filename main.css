@@ -272,6 +272,42 @@ a:active {
         border: 1px solid;
     }
 
+    .leaflet-popup-content {
+        font-family: source-sans-pro, sans-serif;
+        font-size: 1rem;
+        line-height: 1.7;
+    }
+
+    .leaflet-popup-content h1 {
+        font-size: 1.25rem;
+        text-align: center;
+        font-weight: 600;
+    }
+
+    .leaflet-container a.leaflet-popup-close-button {
+        margin: .125rem;
+    }
+
+    .leaflet-popup-content a {
+        color: var(--linkColor);
+        opacity: .9;
+        font-weight: 600;
+        display: block;
+        margin: auto;
+        padding: .25rem;
+        width: 100%;
+        text-align: center;
+        background-image:
+            linear-gradient(217deg, rgba(0, 76, 255, 0.2), rgba(255,0,0,0) 70.71%),
+            linear-gradient(127deg, rgba(255, 230, 0, 0.2), rgba(0,255,0,0) 70.71%),
+            linear-gradient(336deg, rgba(0, 255, 0, 0.2), rgba(0,0,255,0) 70.71%);
+        transition: all .5s ease-in-out;
+    }
+
+    .leaflet-popup-content a:hover {
+        opacity: .5;
+    }
+
     /* #region DESKTOP park list */
 
         /* gradient */
