@@ -64,27 +64,8 @@ for (let i = 0; i < allStatesData.features.length; i++) {
 // max map bounds vars
  const topRightBounds = L.latLng(45.565931, -96.724056);
  const btmLeftBounds = L.latLng(29.710447, -143.349077);
+ // combined
  const latLngBounds = L.latLngBounds(btmLeftBounds, topRightBounds);
-
-//  // handler for button link to map event
-//  L.LinkToMap = L.Handler.extend({
-//     addHooks: function(e) {
-//         let target = e.target;
-//         L.DomEvent.on(target, "click dbclick", this._highlight, this);
-//     },
-
-//     removeHooks: function(e) {
-//         let target = e.target;
-//         L.DomEvent.off(target, "click", this._highlight, this);
-//     },
-
-//     _highlight: function(e) {
-//        let marker = get(`m${e}`);
-//        this._marker.popupopen;
-//     }
-// });
-
-// L.Map.addInitHook('addHandler', 'highlight', L.LinkToMap);
 
  let map = L.map("map", {maxBounds: latLngBounds, highlight: true}).setView([place.lat, place.lon], 10);
  L.tileLayer("https://{s}.basemaps.cartocdn.com/rastertiles/voyager_labels_under/{z}/{x}/{y}{r}.png", {
@@ -152,7 +133,7 @@ function init() {
         // update placeholder & title text to match initial
         updateHTMLElem();
         // show parsed parks data points
-        connectIds();
+        filterParks();
 
     // event listener to implement searchbar
      searchButton.addEventListener("click", search);
@@ -176,7 +157,6 @@ async function search(e) { // final search function; connector of all search asy
         onLaterLoad();
         await removeParks();
         await filterParks();
-        await connectIds();
         
         // then update entire page
         refreshWholeApp();
@@ -333,6 +313,7 @@ async function filterParks() {
 
                         // add id for plot point
                         parkMarker.getElement().id = `m${park.id}`;
+                        // change marker color
                         parkMarker.getElement().style.filter = "hue-rotate(160deg)"
                 };
             };
@@ -341,21 +322,6 @@ async function filterParks() {
         console.log("Parks Filter Error:", err)
     };
 };
-
-async function connectIds() {
-    await filterParks();
-    // html element for handler
-    var newLinkList = document.querySelectorAll(".toMap");
-    var newLink = document.querySelector(".toMap");
-    console.log(newLinkList, newLink);
-    for(let i = 0; i < newLinkList.length; i++) {
-        let link = newLinkList[i];
-        const id = link.id;
-        const marker = document.getElementById(`m${id}`);
-        console.log(marker);
-    };
-}
-
 
 // *********************** CONSTRUCTORS *********************************
 // park constructor
@@ -372,6 +338,7 @@ function Park(id, lat, lon, name, address) {
      this.favorite = false; // for caching
 };
 
+// new geoJSON states collection
 function StateCollection() {
     this.features = [];
     this.type = "FeatureCollection";
@@ -387,7 +354,7 @@ function onFirstLoad() { // initial curtain function
         curtain.classList.toggle("after");
     };
 
-function onLaterLoad() { // reload page (after searching places) curtain function
+function onLaterLoad() { // reload page (after searching for a new place) curtain function
     curtain.classList.toggle("opened");
     openCurtains();
 };
