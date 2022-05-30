@@ -275,11 +275,12 @@ a:active {
     .leaflet-popup-content {
         font-family: source-sans-pro, sans-serif;
         font-size: 1rem;
-        line-height: 1.7;
+        line-height: 1.4;
     }
 
     .leaflet-popup-content h1 {
         font-size: 1.25rem;
+        margin-bottom: .25rem;
         text-align: center;
         font-weight: 600;
     }
@@ -354,7 +355,6 @@ a:active {
                 font-style: italic;
                 text-indent: 1rem;
                 text-align: right;
-                line-height: -2rem;
                 font-size: 3rem;
                 font-weight: 600;
                 width: 3rem;

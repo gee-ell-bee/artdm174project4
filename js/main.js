@@ -125,7 +125,7 @@ L.geoJson(otherStates).setStyle({
   //for park markers in filterParks()
  var mapIcon = L.icon({
     iconUrl: 'images/pin.png',
-    iconSize: [48, 50], // size of the icon
+    iconSize: [47, 50], // size of the icon
  });
 
 //  **************** ACTUAL SCRIPTS RUN ON PAGE ********************************
@@ -324,12 +324,17 @@ async function filterParks() {
                             
                         // PLOT POINT for park
                              var parkMarker = L.marker(
-                                [park.position.lat, park.position.lon], {icon: mapIcon, title: park.poi.name, alt: `Park marker for ${park.poi.name}`}).addTo(parksLayer)
+                                [park.position.lat, park.position.lon], {icon: mapIcon, title: park.poi.name, alt: `Park marker`}).addTo(parksLayer)
                              // create pop-up with basic info
                               .bindPopup(`<h1>${park.poi.name}</h1>
-                                <a href="${url}#p${parkContent.id}">Details &#8594;</a>`)
-                             // event listener to open popup
+                                <a href="${url}#p${parkContent.id}">Details &#8594;</a>`, {maxWidth: 225})
                              ;
+
+                        // dom event f(x)
+                        let markerLink = newListItem.lastElementChild.firstElementChild;
+                        L.DomEvent.on(markerLink, "blur", function () {
+                            parkMarker.openPopup();
+                        });
                             
                             // add id for plot point
                              parkMarker.getElement().id = `m${park.id}`;
@@ -345,12 +350,14 @@ async function connectIds() {
     await filterParks();
     // html element for handler
     var newLinkList = document.querySelectorAll(".toMap");
-    console.log(newLinkList);
-    newLinkList.forEach(link => {
+    var newLink = document.querySelector(".toMap");
+    console.log(newLinkList, newLink);
+    for(let i = 0; i < newLinkList.length; i++) {
+        let link = newLinkList[i];
         const id = link.id;
         const marker = document.getElementById(`m${id}`);
         console.log(marker);
-    });
+    };
 }
 
 
