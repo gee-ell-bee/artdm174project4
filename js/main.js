@@ -20,7 +20,7 @@ for (let i = 0; i < allStatesData.features.length; i++) {
 
  // offsetting spacing for header
  var header = document.querySelector("header").offsetHeight;
- let main = document.querySelector("#main").style;
+ let mainStyle = document.querySelector("#main").style;
  let docHtml = document.querySelector("html").style;
 
  //for HTML Form
@@ -113,11 +113,6 @@ L.geoJson(otherStates).setStyle({
         // add initial data & search button functionality
         document.addEventListener("DOMContentLoaded", init);
 
-        window.addEventListener("resize", () => {
-            var header = document.querySelector("header").offsetHeight;
-            docHtml = Number(header) + 20 + "px";
-        });
-
 
 
         // attach curtain animation to document
@@ -126,8 +121,8 @@ L.geoJson(otherStates).setStyle({
 // **************** FUNCTIONS ***************************************************
 function init() {
     // find initial scroll offset
-    main.marginTop = Number(header) + 20 + "px";
-    docHtml.scrollPaddingTop = Number(header) + 20 + "px";
+    mainStyle.marginTop = Number(header) + "px";
+    docHtml.scrollPaddingTop = Number(header) + "px";
 
     // show data
         // update placeholder & title text to match initial
@@ -137,6 +132,13 @@ function init() {
 
     // event listener to implement searchbar
      searchButton.addEventListener("click", search);
+
+    // event listener for changing "main" elem's padding
+     window.addEventListener("resize", () => {
+        var header = document.querySelector("header").offsetHeight;
+        mainStyle.marginTop = Number(header) + "px";
+        docHtml.scrollPaddingTop = Number(header) + "px";
+    });
 };
 
 // NOT CURRENTLY IN USE

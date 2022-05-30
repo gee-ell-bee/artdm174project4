@@ -26,6 +26,11 @@
         --bgColor: white;
         --linkColor: #3c2800;
 
+        /* IMPORTANT: 
+        ??px = Xrem * root-font-size;
+        in this case,
+        ??px = Xrem * 18px; */
+
         background-color: var(--bgColor);
     }
 
@@ -242,10 +247,10 @@ a:active {
 
 /* #region DESKTOP container/main */
     main {
-        padding: 0;
+        padding: 72px;
         width: auto;
         height: auto;
-        margin: 4rem;
+        margin: auto;
         max-width: 1125px;
         height: auto;
     }
@@ -260,54 +265,58 @@ a:active {
         grid-gap: 3rem;
     }
 
-    section.map {
-        margin: auto;
-        padding: 0;
-        width: 100%;
-    }
+    /* #region DESKTOP map */
 
-    #map {
-        height: 45vh;
-        border-radius: 4px;
-        border: 1px solid;
-    }
+        section.map {
+            margin: auto;
+            padding: 0;
+            width: 100%;
+        }
 
-    .leaflet-popup-content {
-        font-family: source-sans-pro, sans-serif;
-        font-size: 1rem;
-        line-height: 1.4;
-    }
+        #map {
+            height: 45vh;
+            border-radius: 4px;
+            border: 1px solid;
+        }
 
-    .leaflet-popup-content h1 {
-        font-size: 1.25rem;
-        margin-bottom: .25rem;
-        text-align: center;
-        font-weight: 600;
-    }
+        .leaflet-popup-content {
+            font-family: source-sans-pro, sans-serif;
+            font-size: 1rem;
+            line-height: 1.4;
+        }
 
-    .leaflet-container a.leaflet-popup-close-button {
-        margin: .125rem;
-    }
+        .leaflet-popup-content h1 {
+            font-size: 1.25rem;
+            margin-bottom: .25rem;
+            text-align: center;
+            font-weight: 600;
+        }
 
-    .leaflet-popup-content a {
-        color: var(--linkColor);
-        opacity: .9;
-        font-weight: 600;
-        display: block;
-        margin: auto;
-        padding: .25rem;
-        width: 100%;
-        text-align: center;
-        background-image:
-            linear-gradient(217deg, rgba(0, 76, 255, 0.2), rgba(255,0,0,0) 70.71%),
-            linear-gradient(127deg, rgba(255, 230, 0, 0.2), rgba(0,255,0,0) 70.71%),
-            linear-gradient(336deg, rgba(0, 255, 0, 0.2), rgba(0,0,255,0) 70.71%);
-        transition: all .5s ease-in-out;
-    }
+        .leaflet-container a.leaflet-popup-close-button {
+            margin: .125rem;
+        }
 
-    .leaflet-popup-content a:hover {
-        opacity: .5;
-    }
+        .leaflet-popup-content a {
+            color: var(--linkColor);
+            opacity: .9;
+            font-weight: 600;
+            display: block;
+            margin: auto;
+            padding: .25rem;
+            width: 100%;
+            text-align: center;
+            background-image:
+                linear-gradient(217deg, rgba(0, 76, 255, 0.2), rgba(255,0,0,0) 70.71%),
+                linear-gradient(127deg, rgba(255, 230, 0, 0.2), rgba(0,255,0,0) 70.71%),
+                linear-gradient(336deg, rgba(0, 255, 0, 0.2), rgba(0,0,255,0) 70.71%);
+            transition: all .5s ease-in-out;
+        }
+
+        .leaflet-popup-content a:hover {
+            opacity: .5;
+        }
+
+    /* #endregion */
 
     /* #region DESKTOP park list */
 
@@ -319,7 +328,7 @@ a:active {
 
             div#gradient { /* bottom-end gradient */
                 background: linear-gradient(to bottom,
-                    transparent 95%,
+                    transparent 90%,
                     var(--bgColor));
                 z-index: 1;
                 position: absolute;
@@ -333,7 +342,7 @@ a:active {
         /* list container */
             .content .parkList {
                 overflow-y: scroll;
-                height: 60vh;
+                height: 50vh;
                 max-height: 500px;
                 scrollbar-color: var(--accentColor);
             }
@@ -488,6 +497,7 @@ a:active {
         }
 
         footer nav ul.appInfo li {
+            text-align: center;
             margin: 1rem;
         }
     /* #endregion */
@@ -495,7 +505,7 @@ a:active {
 /* #endregion */
 
 /* #region TABLET media query */
-@media screen and (max-width: 1000px) {
+@media screen and (max-width: 1038px) {
     div.marker.links {
         display: block;
     }
@@ -511,6 +521,8 @@ a:active {
         margin: .75rem auto .5rem auto;
     }
 }
+
+/* #endregion */
 
 /* #region MOBILE media query */
 @media screen and (max-width: 750px) {
@@ -533,8 +545,7 @@ a:active {
     }
 
     main {
-        margin: 7vmin;
-        padding: 0;
+        padding: 10vmin;
         width: auto;
         height: auto;
     }
@@ -558,7 +569,7 @@ a:active {
     }
 
     .content .parkList {
-        max-height: 30vh;
+        max-height: 40vh;
     }
 
     #parkList {
@@ -581,3 +592,5 @@ a:active {
     }
 
 }
+
+/* #endregion */
