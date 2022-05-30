@@ -124,8 +124,8 @@ L.geoJson(otherStates).setStyle({
  // create custom icon, coded & designed by Alex Maddux
   //for park markers in filterParks()
  var mapIcon = L.icon({
-    iconUrl: 'images/pin.png',
-    iconSize: [47, 50], // size of the icon
+    iconUrl: 'images/pin.svg',
+    iconSize: [24, 30], // size of the icon
  });
 
 //  **************** ACTUAL SCRIPTS RUN ON PAGE ********************************
@@ -283,11 +283,6 @@ async function getParks() { // get tomtom parks data
     };
 };
 
-function getParkMarker(marker) {
-    parkMarker = document.getElementById(marker);
-    parkMarker.togglePopup();
-};
-
 async function filterParks() {
     try {
         // get park data from getParks f(x)
@@ -324,7 +319,7 @@ async function filterParks() {
                             
                         // PLOT POINT for park
                              var parkMarker = L.marker(
-                                [park.position.lat, park.position.lon], {icon: mapIcon, title: park.poi.name, alt: `Park marker`}).addTo(parksLayer)
+                                [park.position.lat, park.position.lon], {icon: mapIcon, title: park.poi.name, alt: "Marker"}).addTo(parksLayer)
                              // create pop-up with basic info
                               .bindPopup(`<h1>${park.poi.name}</h1>
                                 <a href="${url}#p${parkContent.id}">Details &#8594;</a>`, {maxWidth: 225})
@@ -335,9 +330,10 @@ async function filterParks() {
                         L.DomEvent.on(markerLink, "blur", function () {
                             parkMarker.openPopup();
                         });
-                            
-                            // add id for plot point
-                             parkMarker.getElement().id = `m${park.id}`;
+
+                        // add id for plot point
+                        parkMarker.getElement().id = `m${park.id}`;
+                        parkMarker.getElement().style.filter = "hue-rotate(160deg)"
                 };
             };
         });
