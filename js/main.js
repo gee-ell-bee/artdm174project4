@@ -147,14 +147,6 @@ function onFirstLoad() { // initial curtain function
     curtain.classList.toggle("opened");
 };
 
-// NOT CURRENTLY IN USE
-function searchInput(e) { // update recommended places list as user types
-    // get search input
-     let value = e.target.value;
-    // check value
-     console.log(value);
-};
-
 async function search(e) { // final search function; connector of all search asyncs
     try {
         // prevent page reload
