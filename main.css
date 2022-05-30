@@ -267,7 +267,7 @@ a:active {
     }
 
     #map {
-        height: 50vh;
+        height: 45vh;
         border-radius: 4px;
         border: 1px solid;
     }
@@ -333,7 +333,8 @@ a:active {
         /* list container */
             .content .parkList {
                 overflow-y: scroll;
-                max-height: 60vh;
+                height: 60vh;
+                max-height: 500px;
                 scrollbar-color: var(--accentColor);
             }
 
@@ -351,6 +352,7 @@ a:active {
             ol li::before {
                 content: counter(parksCounter);
                 position: absolute;
+                top: 4rem;
                 left: -5rem;
                 font-style: italic;
                 text-indent: 1rem;
@@ -511,7 +513,7 @@ a:active {
 }
 
 /* #region MOBILE media query */
-@media screen and (max-width: 700px) {
+@media screen and (max-width: 750px) {
 
     header {
         padding: 7vmin;
