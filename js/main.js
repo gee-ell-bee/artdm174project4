@@ -156,7 +156,6 @@ async function search(e) { // final search function; connector of all search asy
 
         // wait for content to refresh
         await searchCities();
-        onLaterLoad();
         await removeParks();
         await filterParks();
         
@@ -348,20 +347,10 @@ function StateCollection() {
 
 // onLoad Curtain
 function onFirstLoad() { // initial curtain function
-    curtain.addEventListener("animationend", toggleAfterClass);
-    openCurtains();
-};
-
-    function toggleAfterClass() { // remove "after" class
+    curtain.addEventListener("animationend", () => {
+        // remove "after" class
         curtain.classList.toggle("after");
-    };
-
-function onLaterLoad() { // reload page (after searching for a new place) curtain function
-    curtain.classList.toggle("opened");
-    openCurtains();
-};
-
-function openCurtains() { // start curtain animation
-    // on start animation
+    });
+    // start curtain animation
     curtain.classList.toggle("opened");
 };
