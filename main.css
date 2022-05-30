@@ -382,6 +382,21 @@ a:active {
                 padding: 1.5rem;
                 border-radius: 12px;
             }
+
+            div.marker.links {
+                display: flex;
+                justify-content: space-between;
+                align-items: center;
+            }
+
+            a.toMap {
+                display: block;
+                width: fit-content;
+                margin: 1.625rem auto auto 1rem;
+                text-align: center;
+                font-weight: 400;
+                opacity: .7;
+            }
         
         /* park list links */
             a.googleMap {
@@ -389,7 +404,7 @@ a:active {
                 align-items: center;
                 /* experiment
                 position: relative; */
-                margin: 1rem auto .5rem auto;
+                margin: 1rem 0 .5rem auto;
                 text-align: center;
                 width: fit-content;
                 background-image:
@@ -477,6 +492,24 @@ a:active {
 
 /* #endregion */
 
+/* #region TABLET media query */
+@media screen and (max-width: 1000px) {
+    div.marker.links {
+        display: block;
+    }
+
+    a.toMap {
+            text-align: center;
+            margin: .75rem auto auto auto;
+            opacity: .7;
+            font-size: 1.25rem;
+    }
+
+    a.googleMap {
+        margin: .75rem auto .5rem auto;
+    }
+}
+
 /* #region MOBILE media query */
 @media screen and (max-width: 700px) {
 
@@ -534,5 +567,15 @@ a:active {
         margin-top: 5vmin;
     }
 
+    div.marker.links {
+        display: block;
+    }
+
+    a.toMap {
+        text-align: center;
+        opacity: .7;
+        font-size: 1.25rem;
+        margin-top: .75rem;
+    }
 
 }
