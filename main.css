@@ -72,16 +72,12 @@
         top: 0;
         left: 0;
         width: 100vw;
-        height: 200vh;
+        height: 100vh;
         background-color: #fff;
         pointer-events: none;
         opacity: 1;
         z-index: 10001;
         transition: opacity 1s ease-out .5s;
-    }
-
-    #curtain.after {
-        transition: opacity .25s ease-out .5s;
     }
 
     #curtain.opened {

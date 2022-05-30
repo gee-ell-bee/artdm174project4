@@ -1,4 +1,4 @@
-import { Locat } from "./locat.js"; // import API keys
+import { Locat } from "./locat.js";
 import { caCities } from "./ca-cities-json.js"; // import cities data
 import { allStatesData } from "./geojson.js"; // geoJSON data
 
@@ -139,6 +139,12 @@ function init() {
         mainStyle.marginTop = Number(header) + "px";
         docHtml.scrollPaddingTop = Number(header) + "px";
     });
+};
+
+// onLoad Curtain
+function onFirstLoad() { // initial curtain function
+    // start curtain animation
+    curtain.classList.toggle("opened");
 };
 
 // NOT CURRENTLY IN USE
@@ -343,14 +349,4 @@ function Park(id, lat, lon, name, address) {
 function StateCollection() {
     this.features = [];
     this.type = "FeatureCollection";
-}
-
-// onLoad Curtain
-function onFirstLoad() { // initial curtain function
-    curtain.addEventListener("animationend", () => {
-        // remove "after" class
-        curtain.classList.toggle("after");
-    });
-    // start curtain animation
-    curtain.classList.toggle("opened");
 };
