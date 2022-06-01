@@ -551,3 +551,12 @@ a:active {
 }
 
 /* #endregion */
+
+/* #region TINY media query */
+@media screen and (max-width: 450px) {
+    #parkList {
+        padding: 0 0 2rem 2rem;
+    }
+}
+
+/* #endregion */
