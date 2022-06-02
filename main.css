@@ -609,19 +609,23 @@ a:active {
 
     main {
         padding: 6vmin;
-        margin: auto auto 5vmin auto;
+        margin: 3vmin auto 5vmin auto;
     }
 
     #map {
-        height: 40vh;
+        height: 35vh;
+    }
+
+    #container {
+        grid-gap: 9vmin;
+    }
+
+    .content .parkList {
+        max-height: 35vh;
     }
 
     #parkList {
         padding: 0 0 1rem 1rem;
-    }
-
-    #parkList li {
-        
     }
 
     ol li {
