@@ -301,7 +301,7 @@ async function filterParks() {
                                 [park.position.lat, park.position.lon], {icon: mapIcon, title: park.poi.name, alt: "Marker"}).addTo(parksLayer)
                              // create pop-up with basic info
                               .bindPopup(`<h1>${park.poi.name}</h1>
-                                <a href="${url}#p${parkContent.id}">Details &#8594;</a>`, {maxWidth: 225})
+                                <a href="${url}#p${parkContent.id}">Details &#8594;</a>`, {maxWidth: 175})
                              ;
 
                         // dom event f(x)
