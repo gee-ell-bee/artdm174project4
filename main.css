@@ -135,14 +135,13 @@ a:active {
 
         .search {
             margin: 1rem 0 0 0;
-            background-color: var(--accentColor);
             font-family: source-sans-pro, sans-serif;
         }
 
         .search span {
             display: flex;
             align-items: center;
-            justify-content: flex-end
+            justify-content: flex-end;
         }
 
         .search .searchLabel {
@@ -151,7 +150,7 @@ a:active {
         }
 
         .searchLabel span {
-            font-size: 20px;
+            font-size: 1.25rem;
             text-shadow: 0px 0px 1px rgba(0, 0, 0, .9);
             width: 12rem;
         }
@@ -160,7 +159,7 @@ a:active {
             margin-left: 1rem;
             padding: .5rem 1rem;
             border-radius: .5rem;
-            font-size: 20px;
+            font-size: 1.25rem;
             font-weight: 400;
             border: 2px solid rgb(107, 182, 207);
             
@@ -460,6 +459,7 @@ a:active {
             display: flex;
             flex-flow: column;
             align-items: center;
+            text-align: center;
         }
 
         footer nav ul.appInfo {
@@ -526,7 +526,7 @@ a:active {
     }
     
     .content .parkList {
-        max-height: 40vh;
+        max-height: 50vh;
     }
 
     #parkList {
@@ -554,8 +554,128 @@ a:active {
 
 /* #region TINY media query */
 @media screen and (max-width: 450px) {
+
+    header {
+        padding: 3vmin 4vmin;
+    }
+
+    header h1 {
+        font-size: 2rem;
+        margin: 4vmin 10vmin 3vmin 10vmin;
+        border: 1px solid rgba(0, 0, 0, 0);
+        line-height: 1.2;
+    }
+
+    header h2 {
+        font-size: 1.75rem;
+        line-height: 1.2;
+    }
+
+    form {
+        flex-flow: column nowrap;
+        grid-gap: 0;
+    }
+
+    .search {
+        margin: 2vmin auto auto auto;
+    }
+
+    .search .searchLabel {
+        flex-flow: column nowrap;
+        align-items: center;
+    }
+
+    .search span {
+        justify-content: center;
+        padding: 2vmin;
+        font-size: 1.125rem;
+    }
+
+    .search #search {
+        max-width: 100%;
+        margin-left: 0;
+        text-align: center;
+    }
+
+    #button {
+        margin: 3vmin 0;
+        padding: 2vmin;
+        border-right: 2px solid rgb(103, 172, 195);
+        border-top: none;
+        border-bottom: 2px solid rgb(103, 172, 195);
+        border-left: 2px solid rgb(103, 172, 195);
+        box-shadow: 0 2px 4px rgba(0, 0, 0, .2);
+    }
+
+    main {
+        padding: 6vmin;
+        margin: auto auto 5vmin auto;
+    }
+
+    #map {
+        height: 40vh;
+    }
+
     #parkList {
-        padding: 0 0 2rem 2rem;
+        padding: 0 0 1rem 1rem;
+    }
+
+    #parkList li {
+        
+    }
+
+    ol li {
+        margin: 4vmin 4vmin 1vmin 10vmin;
+    }
+
+    ol li::before {
+        top: 10vmin;
+        left: -15vmin;
+        text-indent: 1rem;
+        font-size: 2.5rem;
+        line-height: 1.75;
+        width: 2.75rem;
+        height: 2.75rem;
+    }
+
+    /*ol li {
+        counter-increment: parksCounter;
+        margin: .25rem 1rem .25rem 5rem;
+    }
+
+    ol li::before {
+        content: counter(parksCounter);
+        position: absolute;
+        top: 4rem;
+        left: -5rem;
+        font-style: italic;
+        text-indent: 1rem;
+        text-align: right;
+        font-size: 3rem;
+        font-weight: 600;
+        width: 3rem;
+        height: 3rem;
+        color: black;
+        background: var(--accentColor);
+        border-radius: 50%;
+    } */
+
+    footer {
+        padding: 6vmin 10vmin;
+    }
+
+    footer nav ul {
+        display: flex;
+        flex-flow: column nowrap;
+        margin: 4vmin;
+    }
+
+    footer nav ul.appInfo li {
+        margin: 0;
+    }
+
+    footer nav ul.attribution li {
+        margin: 0;
     }
 }
 
