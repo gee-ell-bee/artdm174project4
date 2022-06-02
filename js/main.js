@@ -135,9 +135,11 @@ function init() {
 
     // event listener for changing "main" elem's padding
      window.addEventListener("resize", () => {
-        var header = document.querySelector("header").offsetHeight;
-        mainStyle.marginTop = Number(header) + "px";
-        docHtml.scrollPaddingTop = Number(header) + "px";
+        if (window.innerWidth > 450) {
+            var header = document.querySelector("header").offsetHeight;
+            mainStyle.marginTop = Number(header) + "px";
+            docHtml.scrollPaddingTop = Number(header) + "px";
+        };
     });
 };
 

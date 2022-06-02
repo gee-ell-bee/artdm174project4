@@ -557,6 +557,7 @@ a:active {
 
     header {
         padding: 3vmin 4vmin;
+        position: static;
     }
 
     header h1 {
